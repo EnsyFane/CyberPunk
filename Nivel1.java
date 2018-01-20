@@ -19,7 +19,7 @@ public class Nivel1 extends Nivele
     }
     public void Inceput()
     {
-    Elev elev = new Elev();
+        Elev elev = new Elev();
         addObject(elev,88,530);
         elev.setLocation(129,158);
         PC pc = new PC();

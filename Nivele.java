@@ -13,10 +13,9 @@ public class Nivele extends World
      * Constructor for objects of class Nivele.
      * 
      */
-    private int contor =0;
-    private boolean pause=false,unpause=true,afisat = false,ok= false;
-    boolean play=true;
-    boolean okv0,okv1,okv2;
+    private boolean pause = false,unpause = true,afisat = false,ok = false;
+    boolean play = true;
+    private static boolean okv0 = true,okv1 = true,okv2 = true;
     Pauza pauza = new Pauza(100,100);
     Viata0 viata0 = new Viata0(41, 41);
     Viata1 viata1 = new Viata1(41, 41);
@@ -35,35 +34,27 @@ public class Nivele extends World
     addObject(viata0,1441,37);
     addObject(viata1,1391,37);
     addObject(viata2,1341,37);
-    okv0 = viata0.getOk();
-    okv1 = viata1.getOk();
-    okv2 = viata2.getOk();
+    viata0.setOk(okv0);
+    viata1.setOk(okv1);
+    viata2.setOk(okv2);
   }
  
     public void act()
   {
     String kInput = Greenfoot.getKey();
+    okv0 = viata0.getOk();
+    okv1 = viata1.getOk();
+    okv2 = viata2.getOk();
     if(!okv0)
      play = false;
-    /*if(ok)
-     contor++;*/
     if(unpause)
     {CheckPause(kInput);
-     contor = 0;
      ok = true;
     }
     else if(pause)
     {CheckUnpause(kInput);
-     contor = 0;
      ok = true;
     }
-    /*if(contor>15)
-    {
-        ok = false;
-    }*/
-    viata0.setOk(okv0);
-    viata1.setOk(okv1);
-    viata2.setOk(okv2);
   }
   
   public void CheckPause(String key)
@@ -96,5 +87,31 @@ public class Nivele extends World
      unpause = true;
     }
    }
+  }
+  public void NivelUrmator(){}
+  public void RestartNivel(){}
+  public static void setViata0(boolean x)
+  {
+    okv0=x;
+  }
+  public static void setViata1(boolean x)
+  {
+    okv1=x;
+  }
+  public static void setViata2(boolean x)
+  {
+   okv2=x;
+  }
+  public static boolean getViata0()
+  {
+   return okv0;
+  }
+  public static boolean getViata1()
+  {
+   return okv1;
+  }
+  public static boolean getViata2()
+  {
+   return okv1;
   }
 }

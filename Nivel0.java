@@ -53,5 +53,15 @@ public class Nivel0 extends Nivele
         Spikes spikes3 = new Spikes(30, 30);
         addObject(spikes3,823,429);
         spikes3.setLocation(824,424);
+        spikes3.setLocation(824,412);
+        platforma2.setLocation(924,448);
+    }
+    public void RestartNivel()
+    {
+        Greenfoot.setWorld(new Nivel0());
+    }
+    public void NivelUrmator()
+    {
+        Greenfoot.setWorld(new Nivel1());
     }
 }
