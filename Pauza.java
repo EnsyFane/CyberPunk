@@ -18,9 +18,9 @@ public class Pauza extends Actor
     }
     public Pauza(int lungime, int inaltime)
     {
-    GreenfootImage image = getImage();
-    image.scale(lungime,inaltime);
-    setImage(image);
+     GreenfootImage image = getImage();
+     image.scale(lungime,inaltime);
+     setImage(image);
     }
     public void act() 
     {

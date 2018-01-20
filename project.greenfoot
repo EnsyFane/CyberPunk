@@ -1,7 +1,7 @@
 #Greenfoot properties
-#Sat Jan 20 13:20:38 EET 2018
+#Sat Jan 20 15:37:30 EET 2018
 target2.width=80
-editor.fx.0.height=0
+editor.fx.0.height=689
 target8.name=Nivel1
 target11.y=0
 target11.x=0
@@ -9,7 +9,7 @@ dependency12.type=UsesDependency
 dependency22.type=UsesDependency
 target7.showInterface=false
 target1.type=ClassTarget
-mainWindow.height=1056
+mainWindow.height=744
 target6.typeParameters=
 dependency9.to=Viata2
 target1.height=50
@@ -61,7 +61,7 @@ target4.typeParameters=
 target5.name=Spikes
 class.Elev.image=32 x 32 platform character_idle_0.png
 world.lastInstantiated=Nivel0
-mainWindow.width=1932
+mainWindow.width=1382
 readme.width=47
 target9.name=Elev
 target5.height=50
@@ -88,8 +88,8 @@ dependency21.from=Elev
 target11.type=ClassTarget
 version=3.0.0
 dependency31.from=Nivele
-editor.fx.0.y=0
-editor.fx.0.x=0
+editor.fx.0.y=10
+editor.fx.0.x=427
 class.Spikes.image=burlap.jpg
 dependency15.from=Elev
 dependency6.to=JumpBoost
@@ -122,7 +122,7 @@ target12.y=0
 target12.x=0
 class.Viata0.image=InimaRosie.png
 dependency10.type=UsesDependency
-editor.fx.0.width=0
+editor.fx.0.width=816
 target11.showInterface=false
 class.Viata1.image=InimaRosie.png
 target10.y=0
