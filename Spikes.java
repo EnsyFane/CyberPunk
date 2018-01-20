@@ -14,13 +14,13 @@ public class Spikes extends Actor
      */
     public Spikes()
     {
-    this(30,30);
+        this(30,30);
     }
     public Spikes(int lungime,int inaltime)
     {
       GreenfootImage image = getImage();
-    image.scale(lungime,inaltime);
-    setImage(image);
+      image.scale(lungime,inaltime);
+      setImage(image);
     }
     public void act() 
     {

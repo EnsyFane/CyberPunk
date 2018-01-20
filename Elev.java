@@ -244,7 +244,7 @@ public class Elev extends Actor
                 Nivele.setViata0(false);
             else if(Nivele.getViata1())
                 Nivele.setViata1(false);
-            else 
+            else
                 Nivele.setViata2(false);
             ((Nivele)getWorld()).RestartNivel();
         }
