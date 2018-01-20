@@ -45,7 +45,7 @@ public class Nivele extends World
     okv0 = viata0.getOk();
     okv1 = viata1.getOk();
     okv2 = viata2.getOk();
-    if(!okv0)
+    if(!okv2)
      play = false;
     if(unpause)
     {CheckPause(kInput);
