@@ -94,11 +94,10 @@ public class Elev extends Actor
     
     }
     public void VerifMiscare()
-    {int x = getX(),y = getY();
+    {   int x = getX(),y = getY();
         boolean ok = false;
         if(contorBoostV == 0)
             viteza = 4;
-        
         if(Greenfoot.isKeyDown("left"))
         {
             ok = true;
@@ -307,7 +306,7 @@ public class Elev extends Actor
         sariturab = getOneObjectAtOffset(0,10,JumpBoost.class);
         if(sariturab != null)
         {
-            contorBoostS=20;
+            contorBoostS = 20;
             vitezaS = -20;
             World nivel;
             nivel = getWorld();
@@ -326,7 +325,7 @@ public class Elev extends Actor
     }*/
     public boolean Pauza()
     {
-        Nivele nivel =(Nivele) getWorld();
-    return !nivel.play;
+        Nivele nivel = (Nivele) getWorld();
+        return !nivel.play;
     }
 }
