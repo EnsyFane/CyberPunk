@@ -13,7 +13,6 @@ public class Nivele extends World
      * Constructor for objects of class Nivele.
      * 
      */
-    private int contor =0;
     private boolean pause=false,unpause=true,afisat = false,ok= false;
     boolean play=true;
     boolean okv0,okv1,okv2;
@@ -45,22 +44,14 @@ public class Nivele extends World
     String kInput = Greenfoot.getKey();
     if(!okv0)
      play = false;
-    /*if(ok)
-     contor++;*/
     if(unpause)
     {CheckPause(kInput);
-     contor = 0;
      ok = true;
     }
     else if(pause)
     {CheckUnpause(kInput);
-     contor = 0;
      ok = true;
     }
-    /*if(contor>15)
-    {
-        ok = false;
-    }*/
     viata0.setOk(okv0);
     viata1.setOk(okv1);
     viata2.setOk(okv2);
