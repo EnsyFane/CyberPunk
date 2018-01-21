@@ -17,22 +17,24 @@ public class JocNouClick extends Clickabile
     {
         this(362,170);
     }
+    
     public JocNouClick(int lungime , int inaltime)
     {
-    GreenfootImage image = getImage();
-    image.scale(lungime,inaltime);
-    setImage(image);
-    
+        GreenfootImage image = getImage();
+        image.scale(lungime,inaltime);
+        setImage(image);    
     }
+    
     public void act() 
     {
         // Add your action code here.
         CheckMouseOver();
         CheckClick();
-    }  
+    }
+    
     public void CheckMouseOver()
     {
-    MouseInfo mouse = Greenfoot.getMouseInfo();
+        MouseInfo mouse = Greenfoot.getMouseInfo();
         //Change Button.class to the name of your button class.
         if (mouse != null) {
             //change the file to what you want for when the mouse is not over the button.
@@ -48,12 +50,14 @@ public class JocNouClick extends Clickabile
             }
         }
     }
+    
     public void CheckClick()
     {
-    MouseInfo mouse = Greenfoot.getMouseInfo();
-    if(Greenfoot.mouseClicked(this))
-    clicked = true;
+        MouseInfo mouse = Greenfoot.getMouseInfo();
+        if(Greenfoot.mouseClicked(this))
+        clicked = true;
     }
+    
     public boolean getClicked()
     {
         return clicked;

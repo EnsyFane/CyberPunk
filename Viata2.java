@@ -19,32 +19,38 @@ public class Viata2 extends Actor
     {
         this(41,41);
     }
+    
     public Viata2(int lungime,int inaltime)
     {
         GreenfootImage image = getImage();
         image.scale(lungime,inaltime);
         setImage(image);
     }
+    
     public void act() 
     {
         // Add your action code here.
         update();
     }
+    
     public void update()
     {
-    if(ok)
-        setImage(viata100);
-    else
-        setImage(viata0);
+        if(ok)
+            setImage(viata100);
+        else
+            setImage(viata0);
     }
+    
     public void Eliminat()
     {
         ok=false;
     }
+    
      public boolean getOk()
     {
         return ok;
     }
+    
     public void setOk(boolean x)
     {
         ok = x;

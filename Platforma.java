@@ -14,15 +14,16 @@ public class Platforma extends Actor
      */
     public Platforma()
     {
-    this(300,40);
+        this(300,40);
     }
+    
     public Platforma(int lungime , int inaltime)
     {
-    GreenfootImage image = getImage();
-    image.scale(lungime,inaltime);
-    setImage(image);
-    
+        GreenfootImage image = getImage();
+        image.scale(lungime,inaltime);
+        setImage(image);
     }
+    
     public void act() 
     {
         // Add your action code here.
