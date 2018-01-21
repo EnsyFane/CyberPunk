@@ -32,6 +32,9 @@ public class Nivel0 extends Nivele
         addObject(speedboost2,503,508);
         JumpBoost jumpboost = new JumpBoost(20, 20);
         addObject(jumpboost,659,550);
+        removeObject(jumpboost);
+        AI ai = new AI();
+        addObject(ai,659,525);
         Platforma platforma2 = new Platforma();
         addObject(platforma2,895,471);
         platforma2.setLocation(903,426);
