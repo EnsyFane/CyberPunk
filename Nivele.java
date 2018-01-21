@@ -30,7 +30,7 @@ public class Nivele extends World
     GreenfootImage bg = new GreenfootImage("cyberpunk-street.png"); 
     bg.scale(getWidth(), getHeight());
     setBackground(bg);
-    setPaintOrder(Elev.class,Platforma.class,Cutie.class,PC.class);
+    setPaintOrder(Pauza.class,Elev.class,Platforma.class,Cutie.class,PC.class);
     addObject(viata0,1441,37);
     addObject(viata1,1391,37);
     addObject(viata2,1341,37);

@@ -57,6 +57,7 @@ public class Elev extends Actor
        if(!Pauza())
        {
         Gravitatie();
+        VerifMort();
         VerifMiscare();
         VerifBooster();
         animare++;
@@ -228,17 +229,11 @@ public class Elev extends Actor
        }
        cadru++;
     }
-    public boolean VerifJos()
+    public void VerifMort()
     {
-        boolean ok = false;
-        if(getY()>getWorld().getHeight()-70)
-            ok = true;
-        int latime = getImage().getWidth();
-        int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /4 ,inaltime /2 ,Platforma.class)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /2 ,Platforma.class)!=null
-        ||getOneObjectAtOffset(latime /4 ,inaltime /2 ,Cutie.class)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /2 ,Cutie.class)!=null)
-            ok = true;
-        if(getOneObjectAtOffset(latime /4 ,inaltime /2 ,Spikes.class)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /2 ,Spikes.class)!=null)
+     int latime = getImage().getWidth();
+     int inaltime = getImage().getHeight();
+    if(Jos(Spikes.class))
         {   
             if(Nivele.getViata0())
                 Nivele.setViata0(false);
@@ -248,6 +243,17 @@ public class Elev extends Actor
                 Nivele.setViata2(false);
             ((Nivele)getWorld()).RestartNivel();
         }
+    }
+   public boolean VerifJos()
+    {
+        boolean ok = false;
+        if(getY()>getWorld().getHeight()-70)
+            ok = true;
+        int latime = getImage().getWidth();
+        int inaltime = getImage().getHeight();
+        if(Jos(Platforma.class)||Jos(Cutie.class))
+            ok = true;
+        
         return ok;
     }
     public boolean BlocajSus()
@@ -255,8 +261,7 @@ public class Elev extends Actor
         boolean ok = false;
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /4 +4,inaltime /-4 ,Platforma.class)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /-4 -4 ,Platforma.class)!=null
-        ||getOneObjectAtOffset(latime /4 +4,-inaltime /-4 ,Cutie.class)!=null||getOneObjectAtOffset(latime /-4 -4,inaltime /-4 ,Cutie.class)!=null)
+        if(Sus(Platforma.class)||Sus(Cutie.class))
             ok = true;
         return ok;
     }
@@ -265,9 +270,7 @@ public class Elev extends Actor
         boolean ok = false;
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /4 +8 ,inaltime /-4  ,Platforma.class)!=null||getOneObjectAtOffset(latime /4 +8,inaltime /4 ,Platforma.class)!=null
-        ||getOneObjectAtOffset(latime /4 +8,inaltime /-4 ,Cutie.class)!=null||getOneObjectAtOffset(latime /4 +8,inaltime /4 ,Cutie.class)!=null
-        ||getOneObjectAtOffset(latime /4 +1 ,inaltime /-4 ,Spikes.class)!=null||getOneObjectAtOffset(latime /4 +1 ,inaltime /4 ,Spikes.class)!=null)
+        if(Dreapta(Platforma.class)||Dreapta(Cutie.class)||Dreapta(Spikes.class))
             ok = true;
         return ok;
     }
@@ -276,9 +279,7 @@ public class Elev extends Actor
         boolean ok = false;
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /-4 -8 ,inaltime /-4 ,Platforma.class)!=null||getOneObjectAtOffset(latime /-4  -8,inaltime /4 ,Platforma.class)!=null
-        ||getOneObjectAtOffset(latime /-4 -8 ,inaltime /-4 ,Cutie.class)!=null||getOneObjectAtOffset(latime /-4  -8,inaltime /4 ,Cutie.class)!=null
-        ||getOneObjectAtOffset(latime /-4 -1 ,inaltime /-4 ,Spikes.class)!=null||getOneObjectAtOffset(latime /-4  -1,inaltime /4 ,Spikes.class)!=null)
+        if(Stanga(Platforma.class)||Stanga(Cutie.class)||Stanga(Spikes.class))
             ok = true;
         return ok;
     }
@@ -313,19 +314,41 @@ public class Elev extends Actor
             nivel.removeObject(sariturab);
         }
     }
-    /*public void PcSchimbareNivel()
-    {
-      Actor pc;
-    pc = getOneObjectAtOffset(0,3,PC.class);
-    if(pc!=null)
-    {
-       
-       
-    }
-    }*/
     public boolean Pauza()
     {
         Nivele nivel = (Nivele) getWorld();
         return !nivel.play;
+    }
+    public boolean Jos(Class aux)
+    {
+     int latime = getImage().getWidth();
+     int inaltime = getImage().getHeight();
+    if(getOneObjectAtOffset(latime /4 ,inaltime /2 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /2,aux)!=null)
+    return true;
+    return false;
+    }
+    public boolean Sus(Class aux)
+    {
+     int latime = getImage().getWidth();
+     int inaltime = getImage().getHeight();
+    if(getOneObjectAtOffset(latime /4 +4,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /-4 -4 ,aux)!=null)
+    return true;
+    return false;
+    }
+    public boolean Stanga(Class aux)
+    {
+     int latime = getImage().getWidth();
+     int inaltime = getImage().getHeight();
+    if(getOneObjectAtOffset(latime /-4 -8 ,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4  -8,inaltime /4 ,aux)!=null)
+    return true;
+    return false;
+    }
+    public boolean Dreapta(Class aux)
+    {
+     int latime = getImage().getWidth();
+     int inaltime = getImage().getHeight();
+    if(getOneObjectAtOffset(latime /4 +8 ,inaltime /-4  ,aux)!=null||getOneObjectAtOffset(latime /4 +8,inaltime /4 ,aux)!=null)
+    return true;
+    return false;
     }
 }
