@@ -16,12 +16,14 @@ public class Spikes extends Actor
     {
         this(30,30);
     }
+    
     public Spikes(int lungime,int inaltime)
     {
       GreenfootImage image = getImage();
       image.scale(lungime,inaltime);
       setImage(image);
     }
+    
     public void act() 
     {
         // Add your action code here.

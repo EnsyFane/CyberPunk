@@ -15,6 +15,7 @@ public class StartScreen extends World
      */
     JocNouClick jocnou = new JocNouClick(362, 70);
     private boolean ok = false;
+    private static boolean debug = true;
     public StartScreen()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -33,17 +34,18 @@ public class StartScreen extends World
     }
     public void act()
     {
-    Check();
+        Check();
     }
     public void Check()
     {
-    ok = jocnou.getClicked();
-    if(ok)
-    {
-        Nivele.setViata0(true);
-        Nivele.setViata1(true);
-        Nivele.setViata2(true);
-    Greenfoot.setWorld(new Nivel0());
-    }
+        ok = jocnou.getClicked();
+        if(debug) ok = true;
+        if(ok)
+        {
+            Nivele.setViata0(true);
+            Nivele.setViata1(true);
+            Nivele.setViata2(true);
+            Greenfoot.setWorld(new Nivel0());
+        }
     }
 }

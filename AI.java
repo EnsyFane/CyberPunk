@@ -64,86 +64,81 @@ public class AI extends Actor
         setImage(idle0dr);
         if(Greenfoot.getRandomNumber(2)==1)
         {
-        st = true;
-        dr = false;
-        setImage(idle0dr);
+            st = true;
+            dr = false;
+            setImage(idle0dr);
         }
         else
         {
-         st = false;
-         dr = true;
-         setImage(idle0st);
+            st = false;
+            dr = true;
+            setImage(idle0st);
         } 
         GreenfootImage image = getImage();  
         image.scale(90, 45);
         setImage(image);
         
     }
+    
     public void act() 
     {
         // Add your action code here
        if(!Pauza())
        {
-        Gravitatie();
-        if(contor<240)
-        {
-        Idle();
-        contor++;
-        }
-        else
-        {
-          
-          if(st)
-          {
-              if(!decis)
-              {
-                  distantaMaxima = 200+Greenfoot.getRandomNumber(200);
-                  decis = true;
-              }
-          if(distantaParcursa>distantaMaxima)
-            {
-            contor= 0;
-            distantaParcursa = 0;
-            dr = true;
-            st = false;
-            decis = false;
-            }
+           Gravitatie();
+           if(contor<240)
+           {
+               Idle();
+               contor++;
+           }
            else
-            DeplasareDreapta();
-          }
-          else
-          {
-              if(!decis)
-              {
-                   distantaMaxima = -200;
-                   decis =true;
-          
-              }
-          if(distantaParcursa<distantaMaxima)
-            {
-            contor= 0;
-            distantaParcursa = 0;
-            dr = false;
-            st = true;
-            decis = false;
-            }
-           else
-            DeplasareStanga();
-            
-          }
-            
-          
-        
-        }
-        animare++;
-        if(animare > 8)
-         animare = 1;
-        GreenfootImage image = getImage();  
-        image.scale(90, 45);
-        setImage(image);
-        
+           {
+               if(st)
+               {
+                   if(!decis)
+                   {
+                       distantaMaxima = 200+Greenfoot.getRandomNumber(200);
+                       decis = true;
+                   }
+                   if(distantaParcursa>distantaMaxima)
+                   {
+                       contor= 0;
+                       distantaParcursa = 0;
+                       dr = true;
+                       st = false;
+                       decis = false;
+                   }
+                   else
+                       DeplasareDreapta();
+               }
+               else
+               {
+                   if(!decis)
+                   {
+                       distantaMaxima = -200-Greenfoot.getRandomNumber(200);
+                       decis =true;
+                   }
+                   if(distantaParcursa<distantaMaxima)
+                   {
+                       contor= 0;
+                       distantaParcursa = 0;
+                       dr = false;
+                       st = true;
+                       decis = false;
+                   }
+                   else
+                    DeplasareStanga();
+               }
+           }
+           animare++;
+           if(animare > 8)
+                animare = 1;
+           GreenfootImage image = getImage();  
+           image.scale(90, 45);
+           setImage(image); 
        }
     }
+    
     public void Gravitatie()
     {
       setLocation(getX(),getY() + acceleratieg);
@@ -160,135 +155,142 @@ public class AI extends Actor
       {
           acceleratieg = 0;
           while(BlocajSus())
-            setLocation(getX(),getY() + 1);  
+                setLocation(getX(),getY() + 1);  
       }
       else 
-        acceleratieg+=gr;
+            acceleratieg+=gr;
     
     }
+    
     public void DeplasareDreapta()
     {
         int x = getX();
-            if(!BlocajDreapta())
-                {
-                 x+=viteza;
-                distantaParcursa+=viteza;
-                }
-            else 
-            {
-                contor = 0; 
-                dr = true;
-                st = false;
-                decis = false;
-            }
-            if(animare == 5 && (VerifJos()))
-              {
-                  precedentIdle = false;
-                  AnimareDreapta();
-              }
-              setLocation(x,getY());
-              
-    
+        if(!BlocajDreapta())
+        {
+            x+=viteza;
+            distantaParcursa+=viteza;
+        }
+        else 
+        {
+            contor = 0; 
+            dr = true;
+            st = false;
+            decis = false;
+        }
+        if(animare == 5 && (VerifJos()))
+        {
+            precedentIdle = false;
+            AnimareDreapta();
+        }
+        setLocation(x,getY());
     }
+    
     public void DeplasareStanga()
     {
         int x = getX();
-            if(!BlocajStanga())
-                {
-                    x-=viteza;
-                    distantaParcursa-=viteza;
-                }
-            else  
-            {
-                contor = 0;
-                dr = false;
-                st = true;
-                decis = false;
-            }
-            if(animare == 5 && (VerifJos()))
-                {
-                    precedentIdle = false;
-                    AnimareStanga();
-                }
-           setLocation(x,getY());     
-    
+        if(!BlocajStanga())
+        {
+            x-=viteza;
+            distantaParcursa-=viteza;
+        }
+        else  
+        {
+            contor = 0;
+            dr = false;
+            st = true;
+            decis = false;
+        }
+        if(animare == 5 && (VerifJos()))
+        {
+            precedentIdle = false;
+            AnimareStanga();
+        }
+        setLocation(x,getY());
     }
+    
     public void Idle()
     {
-    if(animare == 8 && (VerifJos()))
+        if(animare == 8 && (VerifJos()))
         {
-          if(dr)
-            AnimareIdleDr();
-          else 
-            AnimareIdleSt();
+            if(dr)
+                AnimareIdleDr();
+            else 
+                AnimareIdleSt();
         }
     }
+    
     public void SarituraSt()
     {
         acceleratieg = vitezaS;
         AnimareSusSt();
     }
+    
     public void SarituraDr()
     {
         acceleratieg = vitezaS;
         AnimareSusDr();
     }
+    
     public void AnimareIdleDr()
     {
         if(cadru == 0)
-        setImage(idle0dr);
+            setImage(idle0dr);
         else if(cadru == 1)
-        setImage(idle1dr);
-      else if(cadru == 2)
-        setImage(idle2dr);
-      else if(cadru == 3)
-        setImage(idle3dr);
-      else if(cadru == 4)
-        setImage(idle4dr);
-      else 
-      {
-          setImage(idle5dr);
-          if(!precedentIdle)
-          cadru = 0;
-          else
-          cadru = 2;
-          return;
-       }
-       precedentIdle = true;
-       cadru++;
+            setImage(idle1dr);
+        else if(cadru == 2)
+            setImage(idle2dr);
+        else if(cadru == 3)
+            setImage(idle3dr);
+        else if(cadru == 4)
+            setImage(idle4dr);
+        else 
+        {
+            setImage(idle5dr);
+            if(!precedentIdle)
+                cadru = 0;
+            else
+                cadru = 2;
+            return;
+        }
+        precedentIdle = true;
+        cadru++;
     }
+    
     public void AnimareIdleSt()
     {
         if(cadru == 0)
-        setImage(idle0st);
+            setImage(idle0st);
         else if(cadru == 1)
-        setImage(idle1st);
-      else if(cadru == 2)
-        setImage(idle2st);
-      else if(cadru == 3)
-        setImage(idle3st);
-      else if(cadru == 4)
-        setImage(idle4st);
-      else 
-      {
-          setImage(idle5st);
-          if(!precedentIdle)
-          cadru = 0;
-          else
-          cadru = 2;
-          return;
-       }
-       precedentIdle = true;
-       cadru++;
+            setImage(idle1st);
+        else if(cadru == 2)
+            setImage(idle2st);
+        else if(cadru == 3)
+            setImage(idle3st);
+        else if(cadru == 4)
+            setImage(idle4st);
+        else 
+        {
+            setImage(idle5st);
+            if(!precedentIdle)
+                cadru = 0;
+            else
+                cadru = 2;
+            return;
+        }
+        precedentIdle = true;
+        cadru++;
     }
+    
     public void AnimareSusDr()
     {
         setImage(saritura1);
     }
+    
      public void AnimareSusSt()
     {
         setImage(saritura2);
     }
+    
     public void AnimareDreapta()
     {
         if(cadru == 0)
@@ -321,6 +323,7 @@ public class AI extends Actor
         }
         cadru++;
     }
+    
     public void AnimareStanga()
     {
         if(cadru == 0)
@@ -354,16 +357,16 @@ public class AI extends Actor
         cadru++;
     }
     
-   public boolean VerifJos()
+    public boolean VerifJos()
     {
         boolean ok = false;
         if(getY()>getWorld().getHeight()-70)
             ok = true;
         if(Jos(Platforma.class)||Jos(Cutie.class))
             ok = true;
-        
         return ok;
     }
+    
     public boolean BlocajSus()
     {
         boolean ok = false;
@@ -373,6 +376,7 @@ public class AI extends Actor
             ok = true;
         return ok;
     }
+    
     public boolean BlocajDreapta()
     {
         boolean ok = false;
@@ -382,6 +386,7 @@ public class AI extends Actor
             ok = true;
         return ok;
     }
+    
     public boolean BlocajStanga()
     {
         boolean ok = false;
@@ -391,43 +396,46 @@ public class AI extends Actor
             ok = true;
         return ok;
     }
+    
     public boolean Pauza()
     {
         Nivele nivel = (Nivele) getWorld();
         return !nivel.play;
     }
+    
     public boolean Jos(Class aux)
     {
-     int latime = getImage().getWidth();
-     int inaltime = getImage().getHeight();
-    if(getOneObjectAtOffset(latime /4 ,inaltime /2 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /2,aux)!=null)
-    return true;
-    return false;
+        int latime = getImage().getWidth();
+        int inaltime = getImage().getHeight();
+        if(getOneObjectAtOffset(latime /4 ,inaltime /2 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /2,aux)!=null)
+            return true;
+        return false;
     }
+    
     public boolean Sus(Class aux)
     {
-     int latime = getImage().getWidth();
-     int inaltime = getImage().getHeight();
-    if(getOneObjectAtOffset(latime /4 +4,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /-4 -4 ,aux)!=null)
-    return true;
-    return false;
+        int latime = getImage().getWidth();
+        int inaltime = getImage().getHeight();
+        if(getOneObjectAtOffset(latime /4 +4,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /-4 -4 ,aux)!=null)
+            return true;
+        return false;
     }
+    
     public boolean Stanga(Class aux)
     {
-     int latime = getImage().getWidth();
-     int inaltime = getImage().getHeight();
-    if(getOneObjectAtOffset(latime /-4 -8 ,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4  -8,inaltime /4 ,aux)!=null)
-    return true;
-    return false;
+        int latime = getImage().getWidth();
+        int inaltime = getImage().getHeight();
+        if(getOneObjectAtOffset(latime /-4 -8 ,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4  -8,inaltime /4 ,aux)!=null)
+            return true;
+        return false;
     }
+    
     public boolean Dreapta(Class aux)
     {
-     int latime = getImage().getWidth();
-     int inaltime = getImage().getHeight();
-    if(getOneObjectAtOffset(latime /4 +8 ,inaltime /-4  ,aux)!=null||getOneObjectAtOffset(latime /4 +8,inaltime /4 ,aux)!=null)
-    return true;
-    return false;
+        int latime = getImage().getWidth();
+        int inaltime = getImage().getHeight();
+        if(getOneObjectAtOffset(latime /4 +8 ,inaltime /-4  ,aux)!=null||getOneObjectAtOffset(latime /4 +8,inaltime /4 ,aux)!=null)
+            return true;
+        return false;
     }
-  
-
 }

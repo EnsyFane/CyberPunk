@@ -14,14 +14,16 @@ public class Pauza extends Actor
      */
     public Pauza()
     {
-     this(100,100);
+        this(100,100);
     }
+    
     public Pauza(int lungime, int inaltime)
     {
-     GreenfootImage image = getImage();
-     image.scale(lungime,inaltime);
-     setImage(image);
+        GreenfootImage image = getImage();
+        image.scale(lungime,inaltime);
+        setImage(image);
     }
+    
     public void act() 
     {
         // Add your action code here.

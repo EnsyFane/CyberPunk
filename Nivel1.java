@@ -17,6 +17,7 @@ public class Nivel1 extends Nivele
     {
         Inceput();
     }
+    
     public void Inceput()
     {
         Elev elev = new Elev();
