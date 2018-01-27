@@ -6,7 +6,7 @@ import java.util.List;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class JocNouClick extends Clickabile
+public class Pauza_Optiuni extends Clickabile
 {
     /**
      * Act - do whatever the JocNouClick wants to do. This method is called whenever
@@ -14,13 +14,12 @@ public class JocNouClick extends Clickabile
      */
     private boolean clicked = false;
     private int x,y;
-    public JocNouClick()
+    public Pauza_Optiuni()
     {
-        this(362,170);
-        
+        this(320,170);        
     }
     
-    public JocNouClick(int lungime , int inaltime)
+    public Pauza_Optiuni(int lungime , int inaltime)
     {
         int s=StartScreen.getRez();
         GreenfootImage image = getImage();
@@ -43,17 +42,17 @@ public class JocNouClick extends Clickabile
         //Change Button.class to the name of your button class.
         if (mouse != null) {
             //change the file to what you want for when the mouse is not over the button.
-            setImage("JocNou.png");
+            setImage("Pauza_Optiuni.png");
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);   
-            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), JocNouClick.class);
+            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), Pauza_Optiuni.class);
             for (Object object : objects)
             {
                 if (object == this)
                 {
                     //change the file to what you want for when the mouse is over the button.
-                    setImage("JocNouInverted.png");
+                    setImage("Pauza_OptiuniInverted.png");
                     image = getImage();
                     image.scale(x,y);
                     setImage(image);   

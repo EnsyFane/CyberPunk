@@ -1,26 +1,22 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 /**
- * Write a description of class JocNouClick here.
+ * Write a description of class HD here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class JocNouClick extends Clickabile
+public class HD extends Clickabile
 {
-    /**
-     * Act - do whatever the JocNouClick wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     private boolean clicked = false;
     private int x,y;
-    public JocNouClick()
+    public HD()
     {
         this(362,170);
         
     }
     
-    public JocNouClick(int lungime , int inaltime)
+    public HD(int lungime , int inaltime)
     {
         int s=StartScreen.getRez();
         GreenfootImage image = getImage();
@@ -43,17 +39,17 @@ public class JocNouClick extends Clickabile
         //Change Button.class to the name of your button class.
         if (mouse != null) {
             //change the file to what you want for when the mouse is not over the button.
-            setImage("JocNou.png");
+            setImage("720p.png");
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);   
-            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), JocNouClick.class);
+            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), HD.class);
             for (Object object : objects)
             {
                 if (object == this)
                 {
                     //change the file to what you want for when the mouse is over the button.
-                    setImage("JocNouInverted.png");
+                    setImage("720pInverted.png");
                     image = getImage();
                     image.scale(x,y);
                     setImage(image);   
@@ -66,7 +62,7 @@ public class JocNouClick extends Clickabile
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if(Greenfoot.mouseClicked(this))
-            clicked = true;
+        clicked = true;
     }
     
     public boolean getClicked()

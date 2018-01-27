@@ -50,18 +50,22 @@ public class AI extends Actor
     private GreenfootImage idle3st = new GreenfootImage("hell-hound-idle_3.png");
     private GreenfootImage idle4st = new GreenfootImage("hell-hound-idle_4.png");
     private GreenfootImage idle5st = new GreenfootImage("hell-hound-idle_5.png");
+    private int s=Nivele.getRez();
     private short cadru = 0,animare = 1,contor = 0;
     private final int gr = 1;
-    private int acceleratieg ,distantaParcursa, distantaMaxima=200;
+    private double acceleratieg ,distantaParcursa, distantaMaxima=200*s/3;
     private boolean st=false,dr = true;
-    private int viteza = 4 , vitezaS = -15;
+    private int viteza = 4;
     private boolean pauza = false,decis = false;
     private boolean precedentIdle = false;
-   
+   int k=1;
     public AI()
     {
         acceleratieg = 0;
         setImage(idle0dr);
+        s=Nivele.getRez();
+        if(s==2) //Daca avem rezolutia setata pe 720p incetinim viteza de miscare altfel aceasta functioneaza normal
+        viteza = 3;
         if(Greenfoot.getRandomNumber(2)==1)
         {
             st = true;
@@ -75,7 +79,7 @@ public class AI extends Actor
             setImage(idle0st);
         } 
         GreenfootImage image = getImage();  
-        image.scale(90, 45);
+        image.scale(90*s/3, 45*s/3);
         setImage(image);
         
     }
@@ -97,7 +101,7 @@ public class AI extends Actor
                {
                    if(!decis)
                    {
-                       distantaMaxima = 200+Greenfoot.getRandomNumber(200);
+                       distantaMaxima = 200*s/3+Greenfoot.getRandomNumber(200*s/3);
                        decis = true;
                    }
                    if(distantaParcursa>distantaMaxima)
@@ -115,7 +119,7 @@ public class AI extends Actor
                {
                    if(!decis)
                    {
-                       distantaMaxima = -200-Greenfoot.getRandomNumber(200);
+                       distantaMaxima = -200*s/3-Greenfoot.getRandomNumber(200*s/3);
                        decis =true;
                    }
                    if(distantaParcursa<distantaMaxima)
@@ -134,14 +138,14 @@ public class AI extends Actor
            if(animare > 8)
                 animare = 1;
            GreenfootImage image = getImage();  
-           image.scale(90, 45);
+           image.scale(90*s/3, 45*s/3);
            setImage(image); 
        }
     }
     
     public void Gravitatie()
     {
-      setLocation(getX(),getY() + acceleratieg);
+      setLocation(getX(),getY() + (int)acceleratieg);
       if(VerifJos())
       {
           acceleratieg = 0;
@@ -150,21 +154,37 @@ public class AI extends Actor
               setLocation(getX(),getY() - 1);  
           }
           setLocation(getX(),getY() + 1); 
-       }
+      }
       else if(acceleratieg<0&&BlocajSus())
       {
           acceleratieg = 0;
           while(BlocajSus())
-                setLocation(getX(),getY() + 1);  
+            setLocation(getX(),getY() + 1);  
       }
       else 
+      {
+          if(s==2)
+          {
+              
+            //Daca avem rezolutia setata pe 720p incetinim gravitatia
+            if(k<5)
             acceleratieg+=gr;
-    
+            else k=1;
+            k++;
+          }
+          else
+          {
+            //Daca avem rezolutia setata pe 1080p gravitatia functioneaza normal
+            acceleratieg+=gr;
+          }
+          
+        
+      }
     }
     
     public void DeplasareDreapta()
     {
-        int x = getX();
+        double x = getX();
         if(!BlocajDreapta())
         {
             x+=viteza;
@@ -182,12 +202,12 @@ public class AI extends Actor
             precedentIdle = false;
             AnimareDreapta();
         }
-        setLocation(x,getY());
+        setLocation((int)x,getY());
     }
     
     public void DeplasareStanga()
     {
-        int x = getX();
+        double x = getX();
         if(!BlocajStanga())
         {
             x-=viteza;
@@ -205,7 +225,7 @@ public class AI extends Actor
             precedentIdle = false;
             AnimareStanga();
         }
-        setLocation(x,getY());
+        setLocation((int)x,getY());
     }
     
     public void Idle()
@@ -217,18 +237,6 @@ public class AI extends Actor
             else 
                 AnimareIdleSt();
         }
-    }
-    
-    public void SarituraSt()
-    {
-        acceleratieg = vitezaS;
-        AnimareSusSt();
-    }
-    
-    public void SarituraDr()
-    {
-        acceleratieg = vitezaS;
-        AnimareSusDr();
     }
     
     public void AnimareIdleDr()
@@ -360,7 +368,7 @@ public class AI extends Actor
     public boolean VerifJos()
     {
         boolean ok = false;
-        if(getY()>getWorld().getHeight()-70)
+        if(getY()>getWorld().getHeight()-70*s/3)
             ok = true;
         if(Jos(Platforma.class)||Jos(Cutie.class))
             ok = true;
@@ -416,7 +424,7 @@ public class AI extends Actor
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /4 +4,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /-4 -4 ,aux)!=null)
+        if(getOneObjectAtOffset(latime /4 +4*s/3,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /-4 -4*s/3 ,aux)!=null)
             return true;
         return false;
     }
@@ -425,7 +433,7 @@ public class AI extends Actor
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /-4 -8 ,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4  -8,inaltime /4 ,aux)!=null)
+        if(getOneObjectAtOffset(latime /-4 -8*s/3 ,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4  -8*s/3,inaltime /4 ,aux)!=null)
             return true;
         return false;
     }
@@ -434,7 +442,7 @@ public class AI extends Actor
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /4 +8 ,inaltime /-4  ,aux)!=null||getOneObjectAtOffset(latime /4 +8,inaltime /4 ,aux)!=null)
+        if(getOneObjectAtOffset(latime /4 +8*s/3 ,inaltime /-4  ,aux)!=null||getOneObjectAtOffset(latime /4 +8*s/3,inaltime /4 ,aux)!=null)
             return true;
         return false;
     }

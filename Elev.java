@@ -35,19 +35,25 @@ public class Elev extends Actor
     private GreenfootImage idle2st = new GreenfootImage("character_idle_2_st.png");
     private GreenfootImage idle3st = new GreenfootImage("character_idle_3_st.png");
     private int cadru = 0,animare = 1;
+    private int s=Nivele.getRez();
     private final int gr = 1;
-    int acceleratieg ;
+    double acceleratieg ;
     boolean st=false,dr = true;
-    private int viteza = 4 , vitezaS = -15;
+    private double vitezaS = -15*s/3;
+    private static double viteza=4;
     private int contorBoostV = 0, contorBoostS = 0;
     private boolean pauza = false;
+    int k=1;
    
     public Elev()
     {
         acceleratieg = 0;
+        s=Nivele.getRez();
+        if(s==2)//Daca avem rezolutia setata pe 720p incetinim viteza de miscare altfel aceasta functioneaza normal
+            viteza=3;
         setImage(idle0);
         GreenfootImage image = getImage();  
-        image.scale(50, 50);
+        image.scale(50*s/3, 50*s/3);
         setImage(image); 
     }
     
@@ -60,11 +66,12 @@ public class Elev extends Actor
             VerifMort();
             VerifMiscare();
             VerifBooster();
+            PikcupViata();
             animare++;
             if(animare > 8)
                 animare = 1;
             GreenfootImage image = getImage();  
-            image.scale(50, 50);
+            image.scale(50*s/3, 50*s/3);
             setImage(image);
             if(contorBoostV > 0)
                 contorBoostV--;
@@ -75,7 +82,7 @@ public class Elev extends Actor
     
     public void Gravitatie()
     {
-      setLocation(getX(),getY() + acceleratieg);
+      setLocation(getX(),getY() + (int)acceleratieg);
       if(VerifJos())
       {
           acceleratieg = 0;
@@ -92,14 +99,36 @@ public class Elev extends Actor
             setLocation(getX(),getY() + 1);  
       }
       else 
-        acceleratieg+=gr;
+      {
+          if(s==2)
+          {
+              
+            //Daca avem rezolutia setata pe 720p incetinim gravitatia
+            if(k<5)
+            acceleratieg+=gr;
+            else k=1;
+            k++;
+          }
+          else
+          {
+            //Daca avem rezolutia setata pe 1080p gravitatia functioneaza normal
+            acceleratieg+=gr;
+          }
+          
+        
+      }
     }
     
     public void VerifMiscare()
-    {   int x = getX(),y = getY();
+    {   double x = getX(),y = getY();
         boolean ok = false;
         if(contorBoostV == 0)
-            viteza = 4;
+            {
+                if(s==2)//Daca avem rezolutia setata pe 720p incetinim viteza de miscare
+                viteza = 3;
+                else //Daca avem rezolutia setata pe 1080p viteza de miscare functioneaza normal
+                viteza =4;
+            }
         if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
         {
             ok = true;
@@ -127,7 +156,7 @@ public class Elev extends Actor
          else
             SarituraDr();
         }
-        setLocation(x,y);
+        setLocation((int)x,(int)y);
         if(animare == 8 && !ok && (VerifJos()))
         {
           if(dr)
@@ -140,7 +169,7 @@ public class Elev extends Actor
     public void SarituraSt()
     {
         if(contorBoostS == 0)
-            vitezaS = -15;
+            vitezaS = -15*s/3;
         acceleratieg = vitezaS;
         AnimareSusSt();
     }
@@ -148,7 +177,7 @@ public class Elev extends Actor
     public void SarituraDr()
     {
         if(contorBoostS == 0)
-            vitezaS = -15;
+            vitezaS = -15*s/3;
         acceleratieg = vitezaS;
         AnimareSusDr();
     }
@@ -238,27 +267,31 @@ public class Elev extends Actor
        }
        cadru++;
     }
-    
+  
     public void VerifMort()
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(Jos(Spikes.class))
+        boolean dead = false;
+        if(Jos(Spikes.class) || Jos(AI.class) || Dreapta(AI.class) || Stanga(AI.class) || Sus(AI.class))
         {   
             if(Nivele.getViata0())
                 Nivele.setViata0(false);
             else if(Nivele.getViata1())
                 Nivele.setViata1(false);
             else
-                Nivele.setViata2(false);
-            ((Nivele)getWorld()).RestartNivel();
+                {
+                    Nivele.setViata2(false);
+                    dead=true;
+                }
+            ((Nivele)getWorld()).RestartNivel(dead);
         }
     }
     
     public boolean VerifJos()
     {
         boolean ok = false;
-        if(getY()>getWorld().getHeight()-70)
+        if(getY()>getWorld().getHeight()-(70*s/3))
             ok = true;
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
@@ -297,6 +330,27 @@ public class Elev extends Actor
         return ok;
     }
     
+      public void PikcupViata()
+    {
+        Actor pv;
+        pv = getOneIntersectingObject(ViataPickup.class);
+        if(pv!=null)
+        {
+            World nivelV;
+            nivelV = getWorld();
+            if(!Nivele.getViata1())
+            {
+                Viata1.setOk(true);
+                nivelV.removeObject(pv);
+            }
+            else if(!Nivele.getViata0())
+            {
+                Viata0.setOk(true);
+                nivelV.removeObject(pv);
+            }    
+        }
+    }
+    
     public void VerifBooster()
     {
         BoostViteza();
@@ -306,28 +360,33 @@ public class Elev extends Actor
     public void BoostViteza()
     {
         Actor speedb;
-        speedb = getOneObjectAtOffset(0,10,SpeedBoost.class);
+        speedb = getOneIntersectingObject(SpeedBoost.class);
         if(speedb != null)
         {
             contorBoostV = 50;
+            if(s==2)
+            viteza = 6;
+            else
             viteza = 8;
             World nivel;
             nivel = getWorld();
             nivel.removeObject(speedb);
+            Nivele.setShouldAddB(0);
         }
     }
     
     public void BoostSaritura()
     {
         Actor sariturab;
-        sariturab = getOneObjectAtOffset(0,10,JumpBoost.class);
+        sariturab = getOneIntersectingObject(JumpBoost.class);
         if(sariturab != null)
         {
             contorBoostS = 20;
-            vitezaS = -20;
+            vitezaS = -20*s/3;
             World nivel;
             nivel = getWorld();
             nivel.removeObject(sariturab);
+            Nivele.setShouldAddB(0);
         }
     }
     
@@ -341,6 +400,11 @@ public class Elev extends Actor
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
+        if(aux==AI.class)
+        {
+            latime = getImage().getWidth()/2;
+            inaltime = getImage().getHeight()/2;
+        }
         if(getOneObjectAtOffset(latime /4 ,inaltime /2 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /2,aux)!=null)
             return true;
         return false;
@@ -350,7 +414,12 @@ public class Elev extends Actor
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /4 +4,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /-4 -4 ,aux)!=null)
+        if(aux==AI.class)
+        {
+            latime = getImage().getWidth()/2;
+            inaltime = getImage().getHeight()/2;
+        }
+        if(getOneObjectAtOffset(latime /4 +4*s/3,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /-4 -4*s/3 ,aux)!=null)
             return true;
         return false;
     }
@@ -359,7 +428,12 @@ public class Elev extends Actor
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /-4 -8 ,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4  -8,inaltime /4 ,aux)!=null)
+        if(aux==AI.class)
+        {
+            latime = getImage().getWidth()/4;
+            inaltime = getImage().getHeight()/4;
+        }
+        if(getOneObjectAtOffset(latime /-4 -8*s/3 ,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4  -8*s/3,inaltime /4 ,aux)!=null)
             return true;
         return false;
     }
@@ -368,8 +442,17 @@ public class Elev extends Actor
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /4 +8 ,inaltime /-4  ,aux)!=null||getOneObjectAtOffset(latime /4 +8,inaltime /4 ,aux)!=null)
+        if(aux==AI.class)
+        {
+            latime = getImage().getWidth()/4;
+            inaltime = getImage().getHeight()/4;
+        }
+        if(getOneObjectAtOffset(latime /4 +8*s/3 ,inaltime /-4  ,aux)!=null||getOneObjectAtOffset(latime /4 +8*s/3,inaltime /4 ,aux)!=null)
             return true;
         return false;
+    }
+    public static int getViteza()
+    {
+    return (int)viteza;
     }
 }

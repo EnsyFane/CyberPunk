@@ -1,32 +1,30 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.io.*;
+
 /**
- * Write a description of class Pauza here.
+ * Write a description of class Intrebare1 here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Pauza extends Actor
+public class Intrebare1 extends Intrebari
 {
     /**
-     * Act - do whatever the Pauza wants to do. This method is called whenever
+     * Act - do whatever the Intrebare1 wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    int s=Nivele.getRez();
+    private int s=Nivele.getRez();
     
-    public Pauza()
+    public Intrebare1()
     {
-        this(100,100);
+    this(40,40);
     }
-    
-    public Pauza(int lungime, int inaltime)
+    public Intrebare1(int lungime,int inaltime)
     {
-        s=Nivele.getRez();
-        GreenfootImage image = getImage();
+    GreenfootImage image = getImage();
         image.scale(lungime*s/3,inaltime*s/3);
-        setImage(image);
-    }
+        setImage(image); 
     
+    }
     public void act() 
     {
         // Add your action code here.

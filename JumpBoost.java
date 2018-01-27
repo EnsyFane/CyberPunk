@@ -12,6 +12,7 @@ public class JumpBoost extends Actor
      * Act - do whatever the JumpBoost wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    private int s=Nivele.getRez();
        public JumpBoost()
     {
         this(300,40);
@@ -20,7 +21,7 @@ public class JumpBoost extends Actor
     public JumpBoost(int lungime , int inaltime)
     {
         GreenfootImage image = getImage();
-        image.scale(lungime,inaltime);
+        image.scale(lungime*s/3,inaltime*s/3);
         setImage(image); 
     }
     
