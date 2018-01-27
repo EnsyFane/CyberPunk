@@ -1,28 +1,24 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class SpeedBoost here.
+ * Write a description of class ViataPickup here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class SpeedBoost extends Actor
+public class ViataPickup extends Actor
 {
-    /**
-     * Act - do whatever the SpeedBoost wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    private int s=Nivele.getRez();
-    public SpeedBoost()
+    int s=Nivele.getRez();
+       public ViataPickup()
     {
         this(300,40);
     }
     
-    public SpeedBoost(int lungime , int inaltime)
+    public ViataPickup(int lungime , int inaltime)
     {
         GreenfootImage image = getImage();
         image.scale(lungime*s/3,inaltime*s/3);
-        setImage(image);
+        setImage(image); 
     }
     
     public void act() 

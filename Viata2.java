@@ -12,9 +12,10 @@ public class Viata2 extends Actor
      * Act - do whatever the Viata2 wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    boolean ok=true;
+    private static boolean ok=true;
     private GreenfootImage viata100 = new GreenfootImage("InimaRosie.png");
     private GreenfootImage viata0 = new GreenfootImage("InimaGri.png");
+    private int x,y;
     public Viata2()
     {
         this(41,41);
@@ -22,8 +23,11 @@ public class Viata2 extends Actor
     
     public Viata2(int lungime,int inaltime)
     {
+       int s=Nivele.getRez();
+        x=lungime*s/3;
+        y=inaltime*s/3;
         GreenfootImage image = getImage();
-        image.scale(lungime,inaltime);
+        image.scale(lungime*s/3,inaltime*s/3);
         setImage(image);
     }
     
@@ -36,9 +40,19 @@ public class Viata2 extends Actor
     public void update()
     {
         if(ok)
+            {
             setImage(viata100);
+            GreenfootImage image = getImage();
+            image.scale(x,y);
+            setImage(image);
+            }
         else
+            {
             setImage(viata0);
+            GreenfootImage image = getImage();
+            image.scale(x,y);
+            setImage(image);
+            }
     }
     
     public void Eliminat()
@@ -51,7 +65,7 @@ public class Viata2 extends Actor
         return ok;
     }
     
-    public void setOk(boolean x)
+    public static void setOk(boolean x)
     {
         ok = x;
     }

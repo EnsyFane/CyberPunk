@@ -12,6 +12,7 @@ public class Spikes extends Actor
      * Act - do whatever the Spikes wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    int s=Nivele.getRez();
     public Spikes()
     {
         this(30,30);
@@ -20,7 +21,7 @@ public class Spikes extends Actor
     public Spikes(int lungime,int inaltime)
     {
       GreenfootImage image = getImage();
-      image.scale(lungime,inaltime);
+      image.scale(lungime*s/3,inaltime*s/3);
       setImage(image);
     }
     

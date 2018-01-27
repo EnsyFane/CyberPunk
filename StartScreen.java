@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.io.*;
 /**
  * Write a description of class StartScreen here.
  * 
@@ -14,12 +14,13 @@ public class StartScreen extends World
      * 
      */
     JocNouClick jocnou = new JocNouClick(362, 70);
-    private boolean ok = false;
-    private static boolean debug = true;
+    Rezolutie rezolutie = new Rezolutie(440,70);
+    private static String r;
+    private static int s=Rez();
     public StartScreen()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1500, 600, 1); 
+        super(1500*Rez()/3, 600*Rez()/3, 1); 
         prepare();
     }
 
@@ -30,22 +31,47 @@ public class StartScreen extends World
     private void prepare()
     {
         addObject(jocnou,746,236);
-        jocnou.setLocation(757,223);
+        jocnou.setLocation(757*s/3,223*s/3);
+        addObject(rezolutie,791,344);
+        rezolutie.setLocation(769*s/3,331*s/3);
     }
+
+
     public void act()
     {
         Check();
     }
     public void Check()
     {
-        ok = jocnou.getClicked();
-        if(debug) ok = true;
-        if(ok)
+        if(jocnou.getClicked())
         {
             Nivele.setViata0(true);
             Nivele.setViata1(true);
             Nivele.setViata2(true);
             Greenfoot.setWorld(new Nivel0());
         }
+        else if(rezolutie.getClicked())
+        {
+            Greenfoot.setWorld(new EcranRezolutie());
+        }
+    }
+    public static int Rez()
+    {
+        try{
+            FileReader fr = new FileReader("Rezolutie.txt");
+            BufferedReader br = new BufferedReader(fr);
+            r=br.readLine();
+            br.close();
+            s = Integer.parseInt(r);
+        }
+        catch(IOException e)
+        {
+            s=3;
+        }
+        return s;
+    }
+    public static int getRez()
+    {
+        return s;
     }
 }
