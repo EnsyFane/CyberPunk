@@ -19,7 +19,7 @@ public class Platforma extends Actor
         GreenfootImage platforma = new GreenfootImage(lungime,40);
         for(int x=0;x<lungime;x+=40)
         {
-            platforma.drawImage(stock,x,0);
+        platforma.drawImage(stock,x,0);
         }
         setImage(platforma);
         GreenfootImage image = getImage();

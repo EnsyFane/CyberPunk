@@ -24,8 +24,8 @@ public class Nivel0 extends LumeScrolling
     private void prepare()
     {
         s=LumeScrolling.getRez();
-        AI ai = new AI();
-        addObject(ai,659,525);
+        //AI ai = new AI();
+        //addObject(ai,659,525);
         Platforma platforma2 = new Platforma(300);
         addObject(platforma2,895,471);
         platforma2.setLocation(903,426);
@@ -39,9 +39,10 @@ public class Nivel0 extends LumeScrolling
         platforma2.setLocation(924*s/3,448*s/3);
         ViataPickup viatapickup = new ViataPickup(20, 20);
         addObject(viatapickup,609*s/3,550*s/3);
+        addObject(new PC1(),609,550);
 
     }
-   
+
     public void AddBoostere()
     {
 

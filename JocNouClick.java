@@ -17,6 +17,7 @@ public class JocNouClick extends Clickabile
     public JocNouClick()
     {
         this(362,170);
+        
     }
     
     public JocNouClick(int lungime , int inaltime)
@@ -65,7 +66,7 @@ public class JocNouClick extends Clickabile
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if(Greenfoot.mouseClicked(this))
-            clicked = true;
+        clicked = true;
     }
     
     public boolean getClicked()

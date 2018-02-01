@@ -1,4 +1,4 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+                import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Write a description of class Elev here.
@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Elev extends Actor
+        public class Elev extends Actor
 {
     /**
      * Act - do whatever the Elev wants to do. This method is called whenever
@@ -36,22 +36,20 @@ public class Elev extends Actor
     private GreenfootImage idle3st = new GreenfootImage("character_idle_3_st.png");
     private int cadru = 0,animare = 1;
     private int s=LumeScrolling.getRez();
-    
+
     private double acceleratieg ;
     boolean st=false,dr = true;
     private double vitezaS = -15*s/3;
-    private static double viteza=4;
+    private static double viteza=5;
     private int contorBoostV = 0, contorBoostS = 0;
     private boolean pauza = false;
-    int k=1;
-
+    private int k=1;
     public Elev()
     {
-        System.gc();
         acceleratieg = 0;
         s=LumeScrolling.getRez();
         if(s==2)//Daca avem rezolutia setata pe 720p incetinim viteza de miscare altfel aceasta functioneaza normal
-            viteza=3;
+            viteza *=s/3;
         setImage(idle0);
         GreenfootImage image = getImage();  
         image.scale(50*s/3, 50*s/3);
@@ -79,6 +77,7 @@ public class Elev extends Actor
             if(contorBoostS > 0)
                 contorBoostS--;
         }
+
     }
 
     public void Gravitatie()
@@ -128,7 +127,7 @@ public class Elev extends Actor
             if(s==2)//Daca avem rezolutia setata pe 720p incetinim viteza de miscare
                 viteza = 3;
             else //Daca avem rezolutia setata pe 1080p viteza de miscare functioneaza normal
-                viteza =4;
+                viteza =5;
         }
         if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
         {
@@ -283,49 +282,38 @@ public class Elev extends Actor
                 LumeScrolling.setViata2(false);
             System.gc();
             ((LumeScrolling)getWorld()).RestartNivel();
+
         }
     }
 
     public boolean VerifJos()
     {
-        boolean ok = false;
         if(getY()>getWorld().getHeight()-(70*s/3))
-            ok = true;
-        int latime = getImage().getWidth();
-        int inaltime = getImage().getHeight();
+            return true;
         if(Jos(Platforma.class)||Jos(Cutie.class))
-            ok = true;
-        return ok;
+            return true;
+        return false;
     }
 
     public boolean BlocajSus()
     {
-        boolean ok = false;
-        int latime = getImage().getWidth();
-        int inaltime = getImage().getHeight();
         if(Sus(Platforma.class,4)||Sus(Cutie.class,4))
-            ok = true;
-        return ok;
+            return true;
+        return false;
     }
 
     public boolean BlocajDreapta()
     {
-        boolean ok = false;
-        int latime = getImage().getWidth();
-        int inaltime = getImage().getHeight();
         if(Dreapta(Platforma.class,8)||Dreapta(Cutie.class,8))
-            ok = true;
-        return ok;
+            return true;
+        return false;
     }
 
     public boolean BlocajStanga()
     {
-        boolean ok = false;
-        int latime = getImage().getWidth();
-        int inaltime = getImage().getHeight();
         if(Stanga(Platforma.class,8)||Stanga(Cutie.class,8))
-            ok = true;
-        return ok;
+            return true;
+        return false;
     }
 
     public void PikcupViata()
@@ -346,6 +334,7 @@ public class Elev extends Actor
                 Viata0.setOk(true);
                 nivelV.removeObject(pv);
             }
+
         }
     }
 
@@ -429,7 +418,6 @@ public class Elev extends Actor
             return true;
         return false;
     }
-
 
     public static int getViteza()
     {

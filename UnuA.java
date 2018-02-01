@@ -1,22 +1,21 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 /**
- * Write a description of class HD here.
+ * Write a description of class UnuA here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class HD extends Clickabile
+public class UnuA extends Raspunsuri
 {
-    private boolean clicked = false;
     private int x,y;
-    public HD()
+    public UnuA()
     {
-        this(362,170);
-        
+        this(234,37);
+
     }
-    
-    public HD(int lungime , int inaltime)
+
+    public UnuA(int lungime , int inaltime)
     {
         int s=StartScreen.getRez();
         GreenfootImage image = getImage();
@@ -25,31 +24,32 @@ public class HD extends Clickabile
         x=lungime*s/3;
         y=inaltime*s/3;
     }
-    
+
     public void act() 
     {
         // Add your action code here.
+
         CheckMouseOver();
         CheckClick();
     }
-    
+
     public void CheckMouseOver()
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
         //Change Button.class to the name of your button class.
         if (mouse != null) {
             //change the file to what you want for when the mouse is not over the button.
-            setImage("720p.png");
+            setImage("1A.png");
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);   
-            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), HD.class);
+            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), UnuA.class);
             for (Object object : objects)
             {
                 if (object == this)
                 {
                     //change the file to what you want for when the mouse is over the button.
-                    setImage("720pInverted.png");
+                    setImage("1Ain.png");
                     image = getImage();
                     image.scale(x,y);
                     setImage(image);   
@@ -57,16 +57,23 @@ public class HD extends Clickabile
             }
         }
     }
-    
+
     public void CheckClick()
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if(Greenfoot.mouseClicked(this))
-        clicked = true;
+        {
+           if(LumeScrolling.getViata0())
+                LumeScrolling.setViata0(false);
+            else if(LumeScrolling.getViata1())
+                LumeScrolling.setViata1(false);
+            else
+                    {
+                        LumeScrolling.setViata2(false);
+                        ((LumeScrolling)getWorld()).RestartNivel();
+                    }
+ 
+        }
     }
-    
-    public boolean getClicked()
-    {
-        return clicked;
-    }
+
 }

@@ -62,7 +62,7 @@ public class Rezolutie extends Clickabile
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if(Greenfoot.mouseClicked(this))
-            clicked = true;
+        clicked = true;
     }
     
     public boolean getClicked()

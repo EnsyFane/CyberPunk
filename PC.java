@@ -30,21 +30,18 @@ public class PC extends Actor
             if(afisatEcran)
             stergere();
         }
-    }  
-    
+    }   
     public boolean CheckActor()
     {
-        if(getOneIntersectingObject(Elev.class)!=null)
-            return true;
-        else
-            return false;
+    if(getOneIntersectingObject(Elev.class)!=null)
+    return true;
+    else
+    return false;
     }
-    
     public void afisare()
     {
         
-    }
-    
+   }
     public void stergere()
     {
     

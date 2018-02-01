@@ -79,6 +79,7 @@ public class AI extends Actor
         GreenfootImage image = getImage();  
         image.scale(90*s/3, 45*s/3);
         setImage(image);
+
     }
 
     public void act() 
@@ -86,6 +87,7 @@ public class AI extends Actor
         // Add your action code here
         if(!Pauza())
         {
+            
             Gravitatie();
             if(contor<240)
             {
@@ -136,12 +138,14 @@ public class AI extends Actor
                 animare = 1;
             GreenfootImage image = getImage();  
             image.scale(90*s/3, 45*s/3);
-            setImage(image); 
+            setImage(image);
+            VerifMort();
         }
     }
 
     public void Gravitatie()
     {
+
         setLocation(getX(),getY() + (int)acceleratieg);
         if(VerifJos())
         {
@@ -152,16 +156,12 @@ public class AI extends Actor
             }
             setLocation(getX(),getY() + 1); 
         }
-        else if(acceleratieg<0&&BlocajSus())
-        {
-            acceleratieg = 0;
-            while(BlocajSus())
-                setLocation(getX(),getY() + 1);  
-        }
         else 
         {
+
                 //Daca avem rezolutia setata pe 1080p gravitatia functioneaza normal
                 acceleratieg+=1;
+
         }
     }
 
@@ -353,14 +353,10 @@ public class AI extends Actor
         return ok;
     }
 
-    public boolean BlocajSus()
+    public void VerifMort()
     {
-        boolean ok = false;
-        int latime = getImage().getWidth();
-        int inaltime = getImage().getHeight();
-        if(Sus(Platforma.class)||Sus(Cutie.class))
-            ok = true;
-        return ok;
+        if(Sus(Cutie.class))
+            getWorld().removeObject(this);
     }
 
     public boolean BlocajDreapta()
@@ -424,4 +420,5 @@ public class AI extends Actor
             return true;
         return false;
     }
+
 }

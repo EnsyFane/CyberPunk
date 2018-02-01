@@ -15,11 +15,11 @@ public class ETutorial0 extends Tutoriale
     private int s=LumeScrolling.getRez();
     public ETutorial0()
     {
-        this(40,40);
+    this(40,40);
     }
     public ETutorial0(int lungime,int inaltime)
     {
-        GreenfootImage image = getImage();
+    GreenfootImage image = getImage();
         image.scale(lungime*s/3,inaltime*s/3);
         setImage(image); 
     }

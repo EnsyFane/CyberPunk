@@ -36,11 +36,11 @@ public class StartScreen extends World
         rezolutie.setLocation(769*s/3,331*s/3);
     }
 
+
     public void act()
     {
         Check();
     }
-    
     public void Check()
     {
         if(jocnou.getClicked())
@@ -52,10 +52,9 @@ public class StartScreen extends World
         }
         else if(rezolutie.getClicked())
         {
-            Greenfoot.setWorld(new EcranRezolutie());
+        Greenfoot.setWorld(new EcranRezolutie());
         }
     }
-    
     public static int Rez()
     {
         try{
@@ -71,9 +70,8 @@ public class StartScreen extends World
         }
         return s;
     }
-    
     public static int getRez()
     {
-        return s;
+    return s;
     }
 }

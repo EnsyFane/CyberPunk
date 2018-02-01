@@ -31,6 +31,7 @@ public class Laser extends Actor
             laserPornit.drawImage(continuarePornit,0,in);
         }
         laserPornit.drawImage(inceputPornit,0,inaltime-30);
+
         GreenfootImage inceputOprit = new GreenfootImage("LaserOprit.png");
         GreenfootImage continuareOprit= new GreenfootImage("LaserOpritContinuare.png");
         GreenfootImage laserOprit = new GreenfootImage(inceputOprit.getWidth(),inaltime);
@@ -61,6 +62,7 @@ public class Laser extends Actor
                 pornit = false;
                 setImage(lo);
             }
+
         }
         else
         {
@@ -70,6 +72,7 @@ public class Laser extends Actor
                 pornit = true;
                 setImage(lp);
             }
+
         }
         contor++;
         image = getImage();
@@ -91,7 +94,9 @@ public class Laser extends Actor
             else
                 LumeScrolling.setViata2(false);
             ((LumeScrolling)getWorld()).RestartNivel();        
+
         } 
+
     }
 
 }

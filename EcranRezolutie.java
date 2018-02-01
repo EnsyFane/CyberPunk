@@ -25,13 +25,13 @@ public class EcranRezolutie extends World
     }
     public void prepare()
     {
-        s=StartScreen.Rez();
-        addObject(hd,746,236);
-        hd.setLocation(757*s/3,223*s/3);
-        addObject(fhd,746,236);
-        fhd.setLocation(769*s/3,331*s/3);
-        addObject(inapoi,746,236);
-        inapoi.setLocation(299*s/3,509*s/3);
+    s=StartScreen.Rez();
+    addObject(hd,746,236);
+    hd.setLocation(757*s/3,223*s/3);
+    addObject(fhd,746,236);
+    fhd.setLocation(769*s/3,331*s/3);
+    addObject(inapoi,746,236);
+    inapoi.setLocation(299*s/3,509*s/3);
     
     }
     public void act()
@@ -50,10 +50,10 @@ public class EcranRezolutie extends World
                 pw.println("3");
                 pw.close();
             }
-            catch(IOException e)
-            {
+       catch(IOException e)
+       {
            
-            }
+        }
         }
         if(hd.getClicked())
         {
@@ -65,14 +65,14 @@ public class EcranRezolutie extends World
                 pw.println("2");
                 pw.close();
             }
-            catch(IOException e)
-            {
+       catch(IOException e)
+       {
            
-            }
+        }
         }
         if(inapoi.getClicked())
         {
-            Greenfoot.setWorld(new StartScreen());
+        Greenfoot.setWorld(new StartScreen());
         }
     }
 }
