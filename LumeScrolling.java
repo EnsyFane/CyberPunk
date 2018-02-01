@@ -13,8 +13,8 @@ public class LumeScrolling extends World
     public static final int inaltime = 600;
     Inapoi inapoi=new Inapoi(300,70);
     Inapoi inapoi2 = new Inapoi(362,70);
-    Pauza_BtMM mainmenu = new Pauza_BtMM(280,70);
-    Pauza_Restart restart = new Pauza_Restart(290,70);
+    Pauza_BtMM mainmenu = new Pauza_BtMM(460,70);
+    Pauza_Restart restart = new Pauza_Restart(300,70);
     HD hd =new HD(510,70);
     FHD fhd=new FHD(533,70);
     Actor actorPrincipal;
