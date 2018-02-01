@@ -1,19 +1,18 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.io.*;
+
 /**
  * Write a description of class Pauza here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Pauza extends Actor
+public class Pauza extends Static
 {
     /**
      * Act - do whatever the Pauza wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    int s=Nivele.getRez();
-    
+    int s=LumeScrolling.getRez();
     public Pauza()
     {
         this(100,100);
@@ -21,7 +20,7 @@ public class Pauza extends Actor
     
     public Pauza(int lungime, int inaltime)
     {
-        s=Nivele.getRez();
+        s=LumeScrolling.getRez();
         GreenfootImage image = getImage();
         image.scale(lungime*s/3,inaltime*s/3);
         setImage(image);

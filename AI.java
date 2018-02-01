@@ -36,8 +36,6 @@ public class AI extends Actor
     private GreenfootImage mers9st = new GreenfootImage("hell-hound-walk_9.png");
     private GreenfootImage mers10st = new GreenfootImage("hell-hound-walk_10.png");
     private GreenfootImage mers11st = new GreenfootImage("hell-hound-walk_11.png");
-    private GreenfootImage saritura2 = new GreenfootImage("character_jump_2.png");
-    private GreenfootImage saritura1 = new GreenfootImage("character_jump_1.png");
     private GreenfootImage idle0dr = new GreenfootImage("hell-hound-idle_0_dr.png");
     private GreenfootImage idle1dr = new GreenfootImage("hell-hound-idle_1_dr.png");
     private GreenfootImage idle2dr = new GreenfootImage("hell-hound-idle_2_dr.png");
@@ -50,22 +48,22 @@ public class AI extends Actor
     private GreenfootImage idle3st = new GreenfootImage("hell-hound-idle_3.png");
     private GreenfootImage idle4st = new GreenfootImage("hell-hound-idle_4.png");
     private GreenfootImage idle5st = new GreenfootImage("hell-hound-idle_5.png");
-    private int s=Nivele.getRez();
+    private int s=LumeScrolling.getRez();
     private short cadru = 0,animare = 1,contor = 0;
-    private final int gr = 1;
-    private double acceleratieg ,distantaParcursa, distantaMaxima=200*s/3;
+    private double distantaParcursa, distantaMaxima=200*s/3;
     private boolean st=false,dr = true;
     private int viteza = 4;
     private boolean pauza = false,decis = false;
     private boolean precedentIdle = false;
-   int k=1;
+    double acceleratieg;
+    int k=1;
     public AI()
     {
         acceleratieg = 0;
         setImage(idle0dr);
-        s=Nivele.getRez();
+        s=LumeScrolling.getRez();
         if(s==2) //Daca avem rezolutia setata pe 720p incetinim viteza de miscare altfel aceasta functioneaza normal
-        viteza = 3;
+            viteza = 3;
         if(Greenfoot.getRandomNumber(2)==1)
         {
             st = true;
@@ -81,107 +79,93 @@ public class AI extends Actor
         GreenfootImage image = getImage();  
         image.scale(90*s/3, 45*s/3);
         setImage(image);
-        
     }
-    
+
     public void act() 
     {
         // Add your action code here
-       if(!Pauza())
-       {
-           Gravitatie();
-           if(contor<240)
-           {
-               Idle();
-               contor++;
-           }
-           else
-           {
-               if(st)
-               {
-                   if(!decis)
-                   {
-                       distantaMaxima = 200*s/3+Greenfoot.getRandomNumber(200*s/3);
-                       decis = true;
-                   }
-                   if(distantaParcursa>distantaMaxima)
-                   {
-                       contor= 0;
-                       distantaParcursa = 0;
-                       dr = true;
-                       st = false;
-                       decis = false;
-                   }
-                   else
-                       DeplasareDreapta();
-               }
-               else
-               {
-                   if(!decis)
-                   {
-                       distantaMaxima = -200*s/3-Greenfoot.getRandomNumber(200*s/3);
-                       decis =true;
-                   }
-                   if(distantaParcursa<distantaMaxima)
-                   {
-                       contor= 0;
-                       distantaParcursa = 0;
-                       dr = false;
-                       st = true;
-                       decis = false;
-                   }
-                   else
-                    DeplasareStanga();
-               }
-           }
-           animare++;
-           if(animare > 8)
+        if(!Pauza())
+        {
+            Gravitatie();
+            if(contor<240)
+            {
+                Idle();
+                contor++;
+            }
+            else
+            {
+                if(st)
+                {
+                    if(!decis)
+                    {
+                        distantaMaxima = 200*s/3+Greenfoot.getRandomNumber(200*s/3);
+                        decis = true;
+                    }
+                    if(distantaParcursa>distantaMaxima)
+                    {
+                        contor= 0;
+                        distantaParcursa = 0;
+                        dr = true;
+                        st = false;
+                        decis = false;
+                    }
+                    else
+                        DeplasareDreapta();
+                }
+                else
+                {
+                    if(!decis)
+                    {
+                        distantaMaxima = -200*s/3-Greenfoot.getRandomNumber(200*s/3);
+                        decis =true;
+                    }
+                    if(distantaParcursa<distantaMaxima)
+                    {
+                        contor= 0;
+                        distantaParcursa = 0;
+                        dr = false;
+                        st = true;
+                        decis = false;
+                    }
+                    else
+                        DeplasareStanga();
+                }
+            }
+            animare++;
+            if(animare > 8)
                 animare = 1;
-           GreenfootImage image = getImage();  
-           image.scale(90*s/3, 45*s/3);
-           setImage(image); 
-       }
+            GreenfootImage image = getImage();  
+            image.scale(90*s/3, 45*s/3);
+            setImage(image); 
+        }
     }
-    
+
     public void Gravitatie()
     {
-      setLocation(getX(),getY() + (int)acceleratieg);
-      if(VerifJos())
-      {
-          acceleratieg = 0;
-          while(VerifJos())
-          {
-              setLocation(getX(),getY() - 1);  
-          }
-          setLocation(getX(),getY() + 1); 
-      }
-      else if(acceleratieg<0&&BlocajSus())
-      {
-          acceleratieg = 0;
-          while(BlocajSus())
-            setLocation(getX(),getY() + 1);  
-      }
-      else 
-      {
-          if(s==2)
-          {
-              
-            //Daca avem rezolutia setata pe 720p incetinim gravitatia
-            if(k<5)
-            acceleratieg+=gr;
-            else k=1;
-            k++;
-          }
-          else
-          {
-            //Daca avem rezolutia setata pe 1080p gravitatia functioneaza normal
-            acceleratieg+=gr;
-          }
-          
-        
-      }
+        setLocation(getX(),getY() + (int)acceleratieg);
+        if(VerifJos())
+        {
+            acceleratieg = 0;
+            while(VerifJos())
+            {
+                setLocation(getX(),getY() - 1);  
+            }
+            setLocation(getX(),getY() + 1); 
+        }
+        else if(acceleratieg<0&&BlocajSus())
+        {
+            acceleratieg = 0;
+            while(BlocajSus())
+                setLocation(getX(),getY() + 1);  
+        }
+        else 
+        {
+                //Daca avem rezolutia setata pe 1080p gravitatia functioneaza normal
+                acceleratieg+=1;
+        }
     }
-    
+
+
     public void DeplasareDreapta()
     {
         double x = getX();
@@ -204,7 +188,7 @@ public class AI extends Actor
         }
         setLocation((int)x,getY());
     }
-    
+
     public void DeplasareStanga()
     {
         double x = getX();
@@ -227,7 +211,7 @@ public class AI extends Actor
         }
         setLocation((int)x,getY());
     }
-    
+
     public void Idle()
     {
         if(animare == 8 && (VerifJos()))
@@ -238,7 +222,7 @@ public class AI extends Actor
                 AnimareIdleSt();
         }
     }
-    
+
     public void AnimareIdleDr()
     {
         if(cadru == 0)
@@ -263,7 +247,7 @@ public class AI extends Actor
         precedentIdle = true;
         cadru++;
     }
-    
+
     public void AnimareIdleSt()
     {
         if(cadru == 0)
@@ -288,17 +272,7 @@ public class AI extends Actor
         precedentIdle = true;
         cadru++;
     }
-    
-    public void AnimareSusDr()
-    {
-        setImage(saritura1);
-    }
-    
-     public void AnimareSusSt()
-    {
-        setImage(saritura2);
-    }
-    
+
     public void AnimareDreapta()
     {
         if(cadru == 0)
@@ -331,7 +305,7 @@ public class AI extends Actor
         }
         cadru++;
     }
-    
+
     public void AnimareStanga()
     {
         if(cadru == 0)
@@ -364,17 +338,21 @@ public class AI extends Actor
         }
         cadru++;
     }
-    
-    public boolean VerifJos()
+
+ 
+    public boolean VerifJos()//Checking under for objects
     {
-        boolean ok = false;
-        if(getY()>getWorld().getHeight()-70*s/3)
-            ok = true;
-        if(Jos(Platforma.class)||Jos(Cutie.class))
-            ok = true;
+        boolean ok=false;
+        if(getY()>getWorld().getHeight()-65*s/3)
+            ok=true;
+        int latime = getImage().getWidth();
+        int inaltime = getImage().getHeight();
+        if(getOneObjectAtOffset(latime /2 ,inaltime /2 ,Platforma.class)!=null||getOneObjectAtOffset(latime /-2 ,inaltime /2 ,Platforma.class)!=null
+        ||getOneObjectAtOffset(latime /2 ,inaltime /2 ,Cutie.class)!=null||getOneObjectAtOffset(latime /-2 ,inaltime /2 ,Cutie.class)!=null)
+            ok=true;
         return ok;
     }
-    
+
     public boolean BlocajSus()
     {
         boolean ok = false;
@@ -384,34 +362,34 @@ public class AI extends Actor
             ok = true;
         return ok;
     }
-    
+
     public boolean BlocajDreapta()
     {
         boolean ok = false;
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(Dreapta(Platforma.class)||Dreapta(Cutie.class)||Dreapta(Spikes.class))
+        if(Dreapta(Platforma.class)||Dreapta(Cutie.class))
             ok = true;
         return ok;
     }
-    
+
     public boolean BlocajStanga()
     {
         boolean ok = false;
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(Stanga(Platforma.class)||Stanga(Cutie.class)||Stanga(Spikes.class))
+        if(Stanga(Platforma.class)||Stanga(Cutie.class))
             ok = true;
         return ok;
     }
-    
+
     public boolean Pauza()
     {
-        Nivele nivel = (Nivele) getWorld();
+        LumeScrolling nivel = (LumeScrolling) getWorld();
         return !nivel.play;
     }
-    
-    public boolean Jos(Class aux)
+
+    public boolean Jos(Class aux)//Checking under for specific object
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
@@ -419,7 +397,7 @@ public class AI extends Actor
             return true;
         return false;
     }
-    
+
     public boolean Sus(Class aux)
     {
         int latime = getImage().getWidth();
@@ -428,7 +406,7 @@ public class AI extends Actor
             return true;
         return false;
     }
-    
+
     public boolean Stanga(Class aux)
     {
         int latime = getImage().getWidth();
@@ -437,7 +415,7 @@ public class AI extends Actor
             return true;
         return false;
     }
-    
+
     public boolean Dreapta(Class aux)
     {
         int latime = getImage().getWidth();

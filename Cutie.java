@@ -12,11 +12,11 @@ public class Cutie extends Actor
      * Act - do whatever the Platforma wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    private final int gr=1;
-    int acceleratieg = 0;
-    private int s=Nivele.getRez();
-    int k=1;
+    //private final int gr=1;
+    //int acceleratieg = 0;
+    private int s=LumeScrolling.getRez();
     private int viteza;
+    int acceleratieg = 0;
     public Cutie()
     {
         this(300,40);
@@ -24,7 +24,7 @@ public class Cutie extends Actor
     
     public Cutie(int lungime , int inaltime)
     {
-        s=Nivele.getRez();
+        s=LumeScrolling.getRez();
         GreenfootImage image = getImage();
         image.scale(lungime*s/3,inaltime*s/3);
         setImage(image);
@@ -33,43 +33,31 @@ public class Cutie extends Actor
     public void act() 
     {
         // Add your action code here.
-        viteza =Elev.getViteza();
+        viteza =Elev.getViteza();//Getting speed from the main actor
         Gravitatie();
         VerifMiscare();
     }
     
-     public void Gravitatie()
+     public void Gravitatie()//Falling
     {
-      setLocation(getX(),getY()+acceleratieg);
-      if(VerifJos())
-      {
-          acceleratieg=0;
-          while(VerifJos())
-          {
+        int gr=1;  
+        setLocation(getX(),getY()+acceleratieg);
+        if(VerifJos())
+        {
+            acceleratieg=0;
+            while(VerifJos())
+            {
               setLocation(getX(),getY()-1);  
-          }
-              setLocation(getX(),getY()+1); 
-       }
-      else 
-      {
-          if(s==2)
-          {
-              
-            //Daca avem rezolutia setata pe 720p incetinim gravitatia
-            if(k<5)
+            }
+            setLocation(getX(),getY()+1); 
+        }
+        else 
+        {
             acceleratieg+=gr;
-            else k=1;
-            k++;
-          }
-          else
-          {
-            //Daca avem rezolutia setata pe 1080p gravitatia functioneaza normal
-            acceleratieg+=gr;
-          }
-      }
+        }
     }
     
-    public void VerifMiscare()
+    public void VerifMiscare()//Checking if it is pushed
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
@@ -81,7 +69,7 @@ public class Cutie extends Actor
             setLocation(getX()+viteza,getY());
     }
     
-    public boolean VerifJos()
+    public boolean VerifJos()//Checking under for objects
     {
         boolean ok=false;
         if(getY()>getWorld().getHeight()-65*s/3)
@@ -95,7 +83,7 @@ public class Cutie extends Actor
         return ok;
     }
     
-    public boolean BlocajStanga()
+    public boolean BlocajStanga()//Checking left for objects
     {
         boolean ok=false;
         int latime = getImage().getWidth();
@@ -107,7 +95,7 @@ public class Cutie extends Actor
         return ok;
     }
     
-     public boolean BlocajDreapta()
+     public boolean BlocajDreapta()//Checking right for objects
     {
         boolean ok=false;
         int latime = getImage().getWidth();

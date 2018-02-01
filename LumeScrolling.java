@@ -1,31 +1,29 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.io.*;
 /**
- * Write a description of class Nivele here.
+ * Write a description of class LumeScrolling here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Nivele extends World
+public class LumeScrolling extends World
 {
-
-    /**
-     * Constructor for objects of class Nivele.
-     * 
-     */
-
-    HD hd =new HD(510,70);
-    FHD fhd=new FHD(533,70);
-    Inapoi inapoi=new Inapoi(362,70);
+ 
+    public static final int lungime = 1500;
+    public static final int inaltime = 600;
+    Inapoi inapoi=new Inapoi(300,70);
     Inapoi inapoi2 = new Inapoi(362,70);
     Pauza_BtMM mainmenu = new Pauza_BtMM(280,70);
-    Pauza_Restart restart = new Pauza_Restart(440,70);
+    Pauza_Restart restart = new Pauza_Restart(290,70);
+    HD hd =new HD(510,70);
+    FHD fhd=new FHD(533,70);
+    Actor actorPrincipal;
+    Scroller scroller;
     private boolean pause = false,unpause = true,afisat = false,ok = false;
     boolean play = true;
     private static boolean okv0 = true,okv1 = true,okv2 = true;
     private static String r;
     private static int s=Rez();
-    private int lungime=1500,inaltime=600;
     private static int shouldAddB =600;
     private boolean afisatB=false;
     private boolean newRez = false;
@@ -33,16 +31,20 @@ public class Nivele extends World
     Viata0 viata0 = new Viata0(41, 41);
     Viata1 viata1 = new Viata1(41, 41);
     Viata2 viata2 = new Viata2(41, 41);
-    public Nivele()
-    {          
-        super(1500*Rez()/3,600*Rez()/3, 1);
-        Elev elev = new Elev();
-        addObject(elev,88,530);
-        elev.setLocation(129,158);
-        GreenfootImage bg = new GreenfootImage("cyberpunk-street.png"); 
-        bg.scale(getWidth(), getHeight());
+    public LumeScrolling()
+    {    
+        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+        super(lungime*Rez()/3,inaltime*Rez()/3, 1,false);
+        GreenfootImage bg = new GreenfootImage("cyberpunk-street.png");
         setBackground(bg);
-        setPaintOrder(Pauza.class,Tutoriale.class,Intrebari.class,Elev.class,Platforma.class,Cutie.class,PC.class);
+        bg.scale(lungime*s/3*2,inaltime*s/3);
+        int lungBg = bg.getWidth();
+        int inalBg = bg.getHeight();
+        setPaintOrder(Pauza.class,Viata0.class,Viata1.class,Viata2.class,Tutoriale.class,Intrebari.class,Elev.class,Platforma.class,Cutie.class,PC.class);
+        actorPrincipal = new Elev();
+        scroller = new Scroller(this, bg,2*lungime*s/3,inaltime*s/3);
+        addObject(actorPrincipal ,100,100);
+        Greenfoot.setSpeed(49);
         addObject(viata0,lungime*s/3-(59*s/3),37*s/3);
         addObject(viata1,lungime*s/3-(59*s/3)-(50*s/3),37*s/3);
         addObject(viata2,lungime*s/3-(59*s/3)-2*(50*s/3),37*s/3);
@@ -50,9 +52,11 @@ public class Nivele extends World
         viata1.setOk(okv1);
         viata2.setOk(okv2);  
     }
-
+     
     public void act()
-    {    
+    {
+        if(actorPrincipal!=null)
+            scroll();
         String kInput = Greenfoot.getKey();
         okv0 = viata0.getOk();
         okv1 = viata1.getOk();
@@ -81,7 +85,14 @@ public class Nivele extends World
         }
         Check();
     }
-  
+     
+    public void scroll()
+    {     
+        int x = actorPrincipal.getX()-lungime/2;
+        int y = actorPrincipal.getY()-inaltime/2;
+        scroller.scroll(x,y);
+    }
+    
     public void CheckPause(String key)
     {
         if(key != null)
@@ -95,9 +106,9 @@ public class Nivele extends World
                     addObject(mainmenu,0,0);
                     mainmenu.setLocation(757*s/3,223*s/3);
                     addObject(restart,0,0);
-                    restart.setLocation(769*s/3,331*s/3);
-                    addObject(inapoi,0,0);
-                    inapoi.setLocation(299*s/3,509*s/3);
+                    restart.setLocation(760*s/3,331*s/3);
+                    //addObject(inapoi,0,0);
+                    //inapoi.setLocation(250*s/3,509*s/3);
                     afisat = true;
                 }
                 play = false;
@@ -106,7 +117,7 @@ public class Nivele extends World
             }
         }
     }
-
+ 
     public void CheckUnpause(String key)
     {
         if(key != null)
@@ -116,7 +127,7 @@ public class Nivele extends World
                 removeObject(pauza);
                 removeObject(mainmenu);
                 removeObject(restart);
-                removeObject(inapoi);
+                //removeObject(inapoi);
                 afisat = false;
                 play = true;
                 pause = false;
@@ -140,16 +151,7 @@ public class Nivele extends World
         }
         if(mainmenu.getClicked())
         {
-            removeObject(mainmenu);
-            removeObject(inapoi);
-            removeObject(restart);
-            s=StartScreen.Rez();
-            addObject(hd,746,236);
-            hd.setLocation(757*s/3,223*s/3);
-            addObject(fhd,746,236);
-            fhd.setLocation(769*s/3,331*s/3);
-            addObject(inapoi2,746,236);
-            inapoi2.setLocation(299*s/3,509*s/3);
+            Greenfoot.setWorld(new StartScreen());
         }
         if(inapoi2.getClicked())
         {
@@ -161,15 +163,15 @@ public class Nivele extends World
             removeObject(inapoi2);
             removeObject(fhd);
             removeObject(hd);
-            addObject(pauza,1500/2*s/3,600/2*s/3);
+            //addObject(pauza,1500/2*s/3,600/2*s/3);
             addObject(mainmenu,0,0);
             mainmenu.setLocation(757*s/3,223*s/3);
             addObject(restart,0,0);
-            restart.setLocation(769*s/3,331*s/3);
-            addObject(inapoi,0,0);
-            inapoi.setLocation(299*s/3,509*s/3);
+            restart.setLocation(760*s/3,331*s/3);
+           //addObject(inapoi,0,0);
+            //inapoi.setLocation(250*s/3,509*s/3);
         }
-        if(inapoi.getClicked())
+        /*if(inapoi.getClicked())
         {
             removeObject(pauza);
             removeObject(mainmenu);
@@ -179,7 +181,7 @@ public class Nivele extends World
             play = true;
             pause = false;
             unpause = true;
-        }
+        }*/
         if(fhd.getClicked())
         {
             newRez=true;
@@ -213,52 +215,52 @@ public class Nivele extends World
             }
         }
     }
-    
-    public void AddBoostere()
+     
+      public void AddBoostere()
     {
     
     }
-  
+   
     public static void setShouldAddB(int x)
     {
         shouldAddB=x;
     }
-        
+         
     public void NivelUrmator()
     {
-        
+         
     }
-    
-    public void RestartNivel(boolean dead)
+     
+    public void RestartNivel()
     {
         
     }
-    
+     
     public static void setViata0(boolean x)
     {
         okv0=x;
     }
-    
+     
     public static void setViata1(boolean x)
     {
         okv1=x;
     }
-    
+     
     public static void setViata2(boolean x)
     {
         okv2=x;
     }
-    
+     
     public static boolean getViata0()
     {
         return okv0;
     }
-    
+     
     public static boolean getViata1()
     {
         return okv1;
     }
-    
+     
     public static boolean getViata2()
     {
         return okv1;
@@ -280,9 +282,9 @@ public class Nivele extends World
         }
         return s;
     }
-    
      public static int getRez()
     {
         return s;
     }
+     
 }

@@ -35,20 +35,21 @@ public class Elev extends Actor
     private GreenfootImage idle2st = new GreenfootImage("character_idle_2_st.png");
     private GreenfootImage idle3st = new GreenfootImage("character_idle_3_st.png");
     private int cadru = 0,animare = 1;
-    private int s=Nivele.getRez();
-    private final int gr = 1;
-    double acceleratieg ;
+    private int s=LumeScrolling.getRez();
+    
+    private double acceleratieg ;
     boolean st=false,dr = true;
     private double vitezaS = -15*s/3;
     private static double viteza=4;
     private int contorBoostV = 0, contorBoostS = 0;
     private boolean pauza = false;
     int k=1;
-   
+
     public Elev()
     {
+        System.gc();
         acceleratieg = 0;
-        s=Nivele.getRez();
+        s=LumeScrolling.getRez();
         if(s==2)//Daca avem rezolutia setata pe 720p incetinim viteza de miscare altfel aceasta functioneaza normal
             viteza=3;
         setImage(idle0);
@@ -56,7 +57,7 @@ public class Elev extends Actor
         image.scale(50*s/3, 50*s/3);
         setImage(image); 
     }
-    
+
     public void act() 
     {
         // Add your action code here
@@ -77,58 +78,58 @@ public class Elev extends Actor
                 contorBoostV--;
             if(contorBoostS > 0)
                 contorBoostS--;
-       }
+        }
     }
-    
+
     public void Gravitatie()
     {
-      setLocation(getX(),getY() + (int)acceleratieg);
-      if(VerifJos())
-      {
-          acceleratieg = 0;
-          while(VerifJos())
-          {
-              setLocation(getX(),getY() - 1);  
-          }
-          setLocation(getX(),getY() + 1); 
-      }
-      else if(acceleratieg<0&&BlocajSus())
-      {
-          acceleratieg = 0;
-          while(BlocajSus())
-            setLocation(getX(),getY() + 1);  
-      }
-      else 
-      {
-          if(s==2)
-          {
-              
-            //Daca avem rezolutia setata pe 720p incetinim gravitatia
-            if(k<5)
-            acceleratieg+=gr;
-            else k=1;
-            k++;
-          }
-          else
-          {
-            //Daca avem rezolutia setata pe 1080p gravitatia functioneaza normal
-            acceleratieg+=gr;
-          }
-          
-        
-      }
+        int gr = 1;
+        setLocation(getX(),getY() + (int)acceleratieg);
+        if(VerifJos())
+        {
+            acceleratieg = 0;
+            while(VerifJos())
+            {
+                setLocation(getX(),getY() - 1);  
+            }
+            setLocation(getX(),getY() + 1); 
+        }
+        else if(acceleratieg<0&&BlocajSus())
+        {
+            acceleratieg = 0;
+            while(BlocajSus())
+                setLocation(getX(),getY() + 1);  
+        }
+        else 
+        {
+            if(s==2)
+            {
+
+                //Daca avem rezolutia setata pe 720p incetinim gravitatia
+                if(k<=3)
+                    acceleratieg+=gr;
+                else k=1;
+                k++;
+            }
+            else
+            {
+                //Daca avem rezolutia setata pe 1080p gravitatia functioneaza normal
+                acceleratieg+=gr;
+            }
+
+        }
     }
-    
+
     public void VerifMiscare()
     {   double x = getX(),y = getY();
         boolean ok = false;
         if(contorBoostV == 0)
-            {
-                if(s==2)//Daca avem rezolutia setata pe 720p incetinim viteza de miscare
+        {
+            if(s==2)//Daca avem rezolutia setata pe 720p incetinim viteza de miscare
                 viteza = 3;
-                else //Daca avem rezolutia setata pe 1080p viteza de miscare functioneaza normal
+            else //Daca avem rezolutia setata pe 1080p viteza de miscare functioneaza normal
                 viteza =4;
-            }
+        }
         if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
         {
             ok = true;
@@ -147,25 +148,25 @@ public class Elev extends Actor
             if(!BlocajDreapta())
                 x+=viteza;
             if(animare == 5 && (VerifJos()))
-              AnimareDreapta();
+                AnimareDreapta();
         }
         if((Greenfoot.isKeyDown("up") ||Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("w")) && (VerifJos()))
         {
-         if(st)
-            SarituraSt();
-         else
-            SarituraDr();
+            if(st)
+                SarituraSt();
+            else
+                SarituraDr();
         }
         setLocation((int)x,(int)y);
         if(animare == 8 && !ok && (VerifJos()))
         {
-          if(dr)
-            AnimareIdleDr();
-          else 
-            AnimareIdleSt();
+            if(dr)
+                AnimareIdleDr();
+            else 
+                AnimareIdleSt();
         }
     }
-    
+
     public void SarituraSt()
     {
         if(contorBoostS == 0)
@@ -173,7 +174,7 @@ public class Elev extends Actor
         acceleratieg = vitezaS;
         AnimareSusSt();
     }
-    
+
     public void SarituraDr()
     {
         if(contorBoostS == 0)
@@ -181,7 +182,7 @@ public class Elev extends Actor
         acceleratieg = vitezaS;
         AnimareSusDr();
     }
-    
+
     public void AnimareIdleDr()
     {
         if(cadru == 0)
@@ -198,34 +199,34 @@ public class Elev extends Actor
         }
         cadru++;
     }
-    
+
     public void AnimareIdleSt()
     {
-       if(cadru==0)
-        setImage(idle0st);
-       else if(cadru==1)
-        setImage(idle1st);
-       else if(cadru==2)
-        setImage(idle2st);
-       else 
-       {
-           setImage(idle3st);
-           cadru = 0;
-           return;
-       }
-       cadru++;
+        if(cadru==0)
+            setImage(idle0st);
+        else if(cadru==1)
+            setImage(idle1st);
+        else if(cadru==2)
+            setImage(idle2st);
+        else 
+        {
+            setImage(idle3st);
+            cadru = 0;
+            return;
+        }
+        cadru++;
     }
-    
+
     public void AnimareSusDr()
     {
         setImage(saritura1);
     }
-    
+
     public void AnimareSusSt()
     {
         setImage(saritura2);
     }
-    
+
     public void AnimareDreapta()
     {
         if(cadru == 0)
@@ -246,7 +247,7 @@ public class Elev extends Actor
         }
         cadru++;
     }
-    
+
     public void AnimareStanga()
     {
         if(cadru == 0)
@@ -264,30 +265,27 @@ public class Elev extends Actor
             setImage(alergare5st);
             cadru = 0;
             return;
-       }
-       cadru++;
+        }
+        cadru++;
     }
-  
+
     public void VerifMort()
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        boolean dead = false;
-        if(Jos(Spikes.class) || Jos(AI.class) || Dreapta(AI.class) || Stanga(AI.class) || Sus(AI.class))
+        if(getOneObjectAtOffset(latime /4 -14*s/3 ,inaltime /-4  ,AI.class)!=null||getOneObjectAtOffset(latime /4 -14*s/3,inaltime /4 ,AI.class)!=null)
         {   
-            if(Nivele.getViata0())
-                Nivele.setViata0(false);
-            else if(Nivele.getViata1())
-                Nivele.setViata1(false);
+            if(LumeScrolling.getViata0())
+                LumeScrolling.setViata0(false);
+            else if(LumeScrolling.getViata1())
+                LumeScrolling.setViata1(false);
             else
-                {
-                    Nivele.setViata2(false);
-                    dead=true;
-                }
-            ((Nivele)getWorld()).RestartNivel(dead);
+                LumeScrolling.setViata2(false);
+            System.gc();
+            ((LumeScrolling)getWorld()).RestartNivel();
         }
     }
-    
+
     public boolean VerifJos()
     {
         boolean ok = false;
@@ -299,38 +297,38 @@ public class Elev extends Actor
             ok = true;
         return ok;
     }
-    
+
     public boolean BlocajSus()
     {
         boolean ok = false;
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(Sus(Platforma.class)||Sus(Cutie.class))
+        if(Sus(Platforma.class,4)||Sus(Cutie.class,4))
             ok = true;
         return ok;
     }
-    
+
     public boolean BlocajDreapta()
     {
         boolean ok = false;
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(Dreapta(Platforma.class)||Dreapta(Cutie.class)||Dreapta(Spikes.class))
+        if(Dreapta(Platforma.class,8)||Dreapta(Cutie.class,8))
             ok = true;
         return ok;
     }
-    
+
     public boolean BlocajStanga()
     {
         boolean ok = false;
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(Stanga(Platforma.class)||Stanga(Cutie.class)||Stanga(Spikes.class))
+        if(Stanga(Platforma.class,8)||Stanga(Cutie.class,8))
             ok = true;
         return ok;
     }
-    
-      public void PikcupViata()
+
+    public void PikcupViata()
     {
         Actor pv;
         pv = getOneIntersectingObject(ViataPickup.class);
@@ -338,25 +336,25 @@ public class Elev extends Actor
         {
             World nivelV;
             nivelV = getWorld();
-            if(!Nivele.getViata1())
+            if(!LumeScrolling.getViata1())
             {
                 Viata1.setOk(true);
                 nivelV.removeObject(pv);
             }
-            else if(!Nivele.getViata0())
+            else if(!LumeScrolling.getViata0())
             {
                 Viata0.setOk(true);
                 nivelV.removeObject(pv);
-            }    
+            }
         }
     }
-    
+
     public void VerifBooster()
     {
         BoostViteza();
         BoostSaritura();
     }
-    
+
     public void BoostViteza()
     {
         Actor speedb;
@@ -365,16 +363,16 @@ public class Elev extends Actor
         {
             contorBoostV = 50;
             if(s==2)
-            viteza = 6;
+                viteza = 6;
             else
-            viteza = 8;
+                viteza = 8;
             World nivel;
             nivel = getWorld();
             nivel.removeObject(speedb);
-            Nivele.setShouldAddB(0);
+            LumeScrolling.setShouldAddB(0);
         }
     }
-    
+
     public void BoostSaritura()
     {
         Actor sariturab;
@@ -386,73 +384,55 @@ public class Elev extends Actor
             World nivel;
             nivel = getWorld();
             nivel.removeObject(sariturab);
-            Nivele.setShouldAddB(0);
+            LumeScrolling.setShouldAddB(0);
         }
     }
-    
+
     public boolean Pauza()
     {
-        Nivele nivel = (Nivele) getWorld();
+        LumeScrolling nivel = (LumeScrolling) getWorld();
         return !nivel.play;
     }
-    
+
     public boolean Jos(Class aux)
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(aux==AI.class)
-        {
-            latime = getImage().getWidth()/2;
-            inaltime = getImage().getHeight()/2;
-        }
         if(getOneObjectAtOffset(latime /4 ,inaltime /2 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /2,aux)!=null)
             return true;
         return false;
     }
-    
-    public boolean Sus(Class aux)
+
+    public boolean Sus(Class aux,int prox)
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(aux==AI.class)
-        {
-            latime = getImage().getWidth()/2;
-            inaltime = getImage().getHeight()/2;
-        }
-        if(getOneObjectAtOffset(latime /4 +4*s/3,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /-4 -4*s/3 ,aux)!=null)
+        if(getOneObjectAtOffset(latime /4 +prox*s/3,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /-4 -prox*s/3 ,aux)!=null)
             return true;
         return false;
     }
-    
-    public boolean Stanga(Class aux)
+
+    public boolean Stanga(Class aux,int prox)
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(aux==AI.class)
-        {
-            latime = getImage().getWidth()/4;
-            inaltime = getImage().getHeight()/4;
-        }
-        if(getOneObjectAtOffset(latime /-4 -8*s/3 ,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4  -8*s/3,inaltime /4 ,aux)!=null)
+        if(getOneObjectAtOffset(latime /-4 -prox*s/3 ,inaltime /-4 ,aux)!=null||getOneObjectAtOffset(latime /-4  -prox*s/3,inaltime /4 ,aux)!=null)
             return true;
         return false;
     }
-    
-    public boolean Dreapta(Class aux)
+
+    public boolean Dreapta(Class aux,int prox)
     {
         int latime = getImage().getWidth();
         int inaltime = getImage().getHeight();
-        if(aux==AI.class)
-        {
-            latime = getImage().getWidth()/4;
-            inaltime = getImage().getHeight()/4;
-        }
-        if(getOneObjectAtOffset(latime /4 +8*s/3 ,inaltime /-4  ,aux)!=null||getOneObjectAtOffset(latime /4 +8*s/3,inaltime /4 ,aux)!=null)
+        if(getOneObjectAtOffset(latime /4 +prox*s/3 ,inaltime /-4  ,aux)!=null||getOneObjectAtOffset(latime /4 +prox*s/3,inaltime /4 ,aux)!=null)
             return true;
         return false;
     }
+
+
     public static int getViteza()
     {
-    return (int)viteza;
+        return (int)viteza;
     }
 }

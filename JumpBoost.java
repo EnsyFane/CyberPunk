@@ -12,7 +12,7 @@ public class JumpBoost extends Actor
      * Act - do whatever the JumpBoost wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    private int s=Nivele.getRez();
+    private int s=LumeScrolling.getRez();
        public JumpBoost()
     {
         this(300,40);

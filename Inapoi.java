@@ -7,12 +7,12 @@ import java.util.List;
  * @version (a version number or a date)
  */
 public class Inapoi extends Clickabile
-{private boolean clicked = false;
+{
+    private boolean clicked = false;
     private int x,y;
     public Inapoi()
     {
-        this(362,170);
-        
+        this(362,170);  
     }
     
     public Inapoi(int lungime , int inaltime)

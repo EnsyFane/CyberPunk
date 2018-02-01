@@ -1,22 +1,25 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 /**
- * Write a description of class FHD here.
+ * Write a description of class JocNouClick here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class FHD extends Clickabile
+public class Pauza_BtMM extends Clickabile
 {
+    /**
+     * Act - do whatever the JocNouClick wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
     private boolean clicked = false;
     private int x,y;
-    public FHD()
+    public Pauza_BtMM()
     {
-        this(362,170);
-        
+        this(320,170);        
     }
     
-    public FHD(int lungime , int inaltime)
+    public Pauza_BtMM(int lungime , int inaltime)
     {
         int s=StartScreen.getRez();
         GreenfootImage image = getImage();
@@ -39,17 +42,17 @@ public class FHD extends Clickabile
         //Change Button.class to the name of your button class.
         if (mouse != null) {
             //change the file to what you want for when the mouse is not over the button.
-            setImage("1080p.png");
+            setImage("Optiuni.png");
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);   
-            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), FHD.class);
+            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), Pauza_BtMM.class);
             for (Object object : objects)
             {
                 if (object == this)
                 {
                     //change the file to what you want for when the mouse is over the button.
-                    setImage("1080pInverted.png");
+                    setImage("OptiuniInverted.png");
                     image = getImage();
                     image.scale(x,y);
                     setImage(image);   

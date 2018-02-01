@@ -12,8 +12,7 @@ public class Pauza_Restart extends Clickabile
     private int x,y;
     public Pauza_Restart()
     {
-        this(362,170);
-        
+        this(322,170);
     }
     
     public Pauza_Restart(int lungime , int inaltime)
@@ -39,7 +38,7 @@ public class Pauza_Restart extends Clickabile
         //Change Button.class to the name of your button class.
         if (mouse != null) {
             //change the file to what you want for when the mouse is not over the button.
-            setImage("JocNou.png");
+            setImage("Restart.png");
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);   
@@ -49,7 +48,7 @@ public class Pauza_Restart extends Clickabile
                 if (object == this)
                 {
                     //change the file to what you want for when the mouse is over the button.
-                    setImage("JocNouInverted.png");
+                    setImage("RestartInverted.png");
                     image = getImage();
                     image.scale(x,y);
                     setImage(image);   

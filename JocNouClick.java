@@ -17,7 +17,6 @@ public class JocNouClick extends Clickabile
     public JocNouClick()
     {
         this(362,170);
-        
     }
     
     public JocNouClick(int lungime , int inaltime)

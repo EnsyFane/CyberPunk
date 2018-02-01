@@ -13,7 +13,7 @@ public class PC extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public boolean afisatEcran = false;
-    int s=Nivele.getRez();
+    int s=LumeScrolling.getRez();
     World nivel;
     public  void act() 
     {
@@ -30,18 +30,21 @@ public class PC extends Actor
             if(afisatEcran)
             stergere();
         }
-    }   
+    }  
+    
     public boolean CheckActor()
     {
-    if(getOneIntersectingObject(Elev.class)!=null)
-    return true;
-    else
-    return false;
+        if(getOneIntersectingObject(Elev.class)!=null)
+            return true;
+        else
+            return false;
     }
+    
     public void afisare()
     {
         
-   }
+    }
+    
     public void stergere()
     {
     

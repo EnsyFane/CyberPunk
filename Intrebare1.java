@@ -12,18 +12,17 @@ public class Intrebare1 extends Intrebari
      * Act - do whatever the Intrebare1 wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    private int s=Nivele.getRez();
+    private int s=LumeScrolling.getRez();
     
     public Intrebare1()
     {
-    this(40,40);
+        this(40,40);
     }
     public Intrebare1(int lungime,int inaltime)
     {
-    GreenfootImage image = getImage();
+        GreenfootImage image = getImage();
         image.scale(lungime*s/3,inaltime*s/3);
         setImage(image); 
-    
     }
     public void act() 
     {

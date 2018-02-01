@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Nivel1 extends Nivele
+public class Nivel1 extends LumeScrolling
 {
 
     /**
@@ -20,10 +20,6 @@ public class Nivel1 extends Nivele
     
     public void Inceput()
     {
-        Elev elev = new Elev();
-        addObject(elev,88,530);
-        elev.setLocation(129,158);
-        PC pc = new PC();
-        addObject(pc,1367,537);
+        
     }
 }

@@ -12,8 +12,7 @@ public class HD extends Clickabile
     private int x,y;
     public HD()
     {
-        this(362,170);
-        
+        this(362,170);        
     }
     
     public HD(int lungime , int inaltime)
@@ -62,7 +61,7 @@ public class HD extends Clickabile
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if(Greenfoot.mouseClicked(this))
-        clicked = true;
+            clicked = true;
     }
     
     public boolean getClicked()

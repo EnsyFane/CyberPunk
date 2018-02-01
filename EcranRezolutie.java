@@ -32,6 +32,7 @@ public class EcranRezolutie extends World
         fhd.setLocation(769*s/3,331*s/3);
         addObject(inapoi,746,236);
         inapoi.setLocation(299*s/3,509*s/3);
+    
     }
     public void act()
     {
