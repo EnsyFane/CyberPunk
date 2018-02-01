@@ -42,7 +42,7 @@ public class Pauza_BtMM extends Clickabile
         //Change Button.class to the name of your button class.
         if (mouse != null) {
             //change the file to what you want for when the mouse is not over the button.
-            setImage("Optiuni.png");
+            setImage("BtMM.png");
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);   
@@ -52,7 +52,7 @@ public class Pauza_BtMM extends Clickabile
                 if (object == this)
                 {
                     //change the file to what you want for when the mouse is over the button.
-                    setImage("OptiuniInverted.png");
+                    setImage("BtMMInverted.png");
                     image = getImage();
                     image.scale(x,y);
                     setImage(image);   
