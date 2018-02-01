@@ -1,19 +1,19 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Tutoriale here.
+ * Write a description of class Static here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Tutoriale extends Static
+public class Static extends Actor
 {
     /**
-     * Act - do whatever the Tutoriale wants to do. This method is called whenever
+     * Act - do whatever the Static wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void act() 
+    public void setLocation(int x,int y)
     {
-        // Add your action code here.
-    }    
+    
+    }
 }

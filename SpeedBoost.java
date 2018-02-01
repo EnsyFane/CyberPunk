@@ -12,7 +12,7 @@ public class SpeedBoost extends Actor
      * Act - do whatever the SpeedBoost wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    private int s=Nivele.getRez();
+    private int s=LumeScrolling.getRez();
     public SpeedBoost()
     {
         this(300,40);

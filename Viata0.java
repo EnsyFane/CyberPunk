@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Viata0 extends Actor
+public class Viata0 extends Static
 {
     /**
      * Act - do whatever the Viata0 wants to do. This method is called whenever
@@ -24,7 +24,7 @@ public class Viata0 extends Actor
     
     public Viata0(int lungime,int inaltime)
     {
-        int s=Nivele.getRez();
+        int s=LumeScrolling.getRez();
         x=lungime*s/3;
         y=inaltime*s/3;
         GreenfootImage image = getImage();
@@ -41,19 +41,19 @@ public class Viata0 extends Actor
     public void update()
     {
         if(ok)
-            {
+        {
             setImage(viata100);
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);
-            }
+        }
         else
-            {
+        {
             setImage(viata0);
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);
-            }
+        }
     }
     
     public void Eliminat()
@@ -69,5 +69,5 @@ public class Viata0 extends Actor
     public static void setOk(boolean x)
     {
         ok = x;
-    }
+    } 
 }

@@ -36,18 +36,18 @@ public class StartScreen extends World
         rezolutie.setLocation(769*s/3,331*s/3);
     }
 
-
     public void act()
     {
         Check();
     }
+    
     public void Check()
     {
         if(jocnou.getClicked())
         {
-            Nivele.setViata0(true);
-            Nivele.setViata1(true);
-            Nivele.setViata2(true);
+            LumeScrolling.setViata0(true);
+            LumeScrolling.setViata1(true);
+            LumeScrolling.setViata2(true);
             Greenfoot.setWorld(new Nivel0());
         }
         else if(rezolutie.getClicked())
@@ -55,6 +55,7 @@ public class StartScreen extends World
             Greenfoot.setWorld(new EcranRezolutie());
         }
     }
+    
     public static int Rez()
     {
         try{
@@ -70,6 +71,7 @@ public class StartScreen extends World
         }
         return s;
     }
+    
     public static int getRez()
     {
         return s;
