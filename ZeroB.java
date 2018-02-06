@@ -1,26 +1,25 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 /**
- * Write a description of class Rezolutie here.
+ * Write a description of class UnuB here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Rezolutie extends Clickabile
+public class ZeroB extends Raspunsuri
 {
-    private boolean clicked = false;
     private int x,y;
-    public Rezolutie()
+    public ZeroB()
     {
-        this(362,170);
+        this(234,37);
         
     }
     
-    public Rezolutie(int lungime , int inaltime)
+    public ZeroB(int lungime , int inaltime)
     {
         int s=StartScreen.getRez();
         GreenfootImage image = getImage();
-        image.scale(lungime*s/3,inaltime*s/3);//Setam imaginea in functie de rezolutie
+        image.scale(lungime*s/3,inaltime*s/3);
         setImage(image);    
         x=lungime*s/3;
         y=inaltime*s/3;
@@ -28,26 +27,28 @@ public class Rezolutie extends Clickabile
     
     public void act() 
     {
-        CheckMouseOver();//Verificam daca mouse-ul se afla pe buton
-        CheckClick();//Verificam daca buotnul este apasat
+        // Add your action code here.
+        CheckMouseOver();
+        CheckClick();
     }
     
     public void CheckMouseOver()
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
-        if (mouse != null) 
-        {
-
-            setImage("Rezolutie.png");
+        //Change Button.class to the name of your button class.
+        if (mouse != null) {
+            //change the file to what you want for when the mouse is not over the button.
+            setImage("0B.png");
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);   
-            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), Rezolutie.class);
+            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), ZeroB.class);
             for (Object object : objects)
             {
-                if (object == this)//Daca mouse-ul se afla pe suprafata butonului
+                if (object == this)
                 {
-                    setImage("RezolutieInverted.png");//Setam imaginea 'Inverted'
+                    //change the file to what you want for when the mouse is over the button.
+                    setImage("0Bin.png");
                     image = getImage();
                     image.scale(x,y);
                     setImage(image);   
@@ -59,15 +60,13 @@ public class Rezolutie extends Clickabile
     public void CheckClick()
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
-        if(Greenfoot.mouseClicked(this))//Verificam daca este apasat butonul
+        if(Greenfoot.mouseClicked(this))
         {
-            clicked = true;
-            Greenfoot.playSound("SunetButon.wav");
+            Sunete.Ok();
+            ((LumeScrolling)getWorld()).NivelUrmator();
         }
+        
     }
-    
-    public boolean getClicked()
-    {
-        return clicked;
-    }
+
+
 }

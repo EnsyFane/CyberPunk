@@ -23,7 +23,7 @@ public class Viata1 extends Static
     
     public Viata1(int lungime,int inaltime)
     {
-        int s=LumeScrolling.getRez();
+       int s=LumeScrolling.getRez();
         x=lungime*s/3;
         y=inaltime*s/3;
         GreenfootImage image = getImage();
@@ -40,19 +40,19 @@ public class Viata1 extends Static
     public void update()
     {
         if(ok)
-        {
+            {
             setImage(viata100);
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);
-        }
+            }
         else
-        {
+            {
             setImage(viata0);
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);
-        }
+            }
     }
     
     public void Eliminat()

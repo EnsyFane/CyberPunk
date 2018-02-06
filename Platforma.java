@@ -17,9 +17,10 @@ public class Platforma extends Actor
     {
         GreenfootImage stock = new GreenfootImage("bricks3.jpg");
         GreenfootImage platforma = new GreenfootImage(lungime,40);
+        //Desenam imaginea pentru platforma in functie de lungime si rezolutie
         for(int x=0;x<lungime;x+=40)
         {
-            platforma.drawImage(stock,x,0);
+        platforma.drawImage(stock,x,0);
         }
         setImage(platforma);
         GreenfootImage image = getImage();
