@@ -6,9 +6,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class ViataPickup extends Actor
+public class ViataPickup extends Pickup
 {
-    int s=Nivele.getRez();
+    int s=LumeScrolling.getRez();
        public ViataPickup()
     {
         this(300,40);
@@ -16,6 +16,7 @@ public class ViataPickup extends Actor
     
     public ViataPickup(int lungime , int inaltime)
     {
+        //Setam imaginea in functie de rezolutie
         GreenfootImage image = getImage();
         image.scale(lungime*s/3,inaltime*s/3);
         setImage(image); 

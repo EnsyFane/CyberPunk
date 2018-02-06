@@ -18,20 +18,23 @@ public class PC extends Actor
     public  void act() 
     {
         // Add your action code here.
-        if(CheckActor())
+        if(LumeScrolling.getCpu())
         {
-           if(!afisatEcran)
-           {
-           afisare();
-           }
+            if(CheckActor())
+            {
+                if(!afisatEcran)
+                {
+                    afisare();
+                }
+            }
+            else
+            {
+                if(afisatEcran)
+                    stergere();
+            }
         }
-        else
-        {
-            if(afisatEcran)
-            stergere();
-        }
-    }  
-    
+    }   
+
     public boolean CheckActor()
     {
         if(getOneIntersectingObject(Elev.class)!=null)
@@ -39,14 +42,14 @@ public class PC extends Actor
         else
             return false;
     }
-    
+
     public void afisare()
     {
-        
+
     }
-    
+
     public void stergere()
     {
-    
+
     }
 }
