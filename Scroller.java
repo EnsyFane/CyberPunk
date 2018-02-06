@@ -26,7 +26,8 @@ public class Scroller extends Actor
     private GreenfootImage scrollImage; // scrolling image
     private boolean limited; // flag to indicate whether scrolling is limited or not
     private int scrolledX, scrolledY; // current scrolled distances
-    private int wide, high; // if limited, dimensions of scrolling area else of image to wrap 
+    private int wide, high; // if limited, dimensions of scrolling area else of image to wrap
+   
     /**
      * This constructor is for an unlimited scrolling world;
      * If 'image' is null, the background will not change; else the given image is wrapped
