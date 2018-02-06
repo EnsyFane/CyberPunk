@@ -16,16 +16,14 @@ public class Intrebare1 extends Intrebari
     
     public Intrebare1()
     {
-        this(40,40);
+    this(40,40);
     }
     public Intrebare1(int lungime,int inaltime)
     {
-        GreenfootImage image = getImage();
+    GreenfootImage image = getImage();
         image.scale(lungime*s/3,inaltime*s/3);
         setImage(image); 
+    
     }
-    public void act() 
-    {
-        // Add your action code here.
-    }    
+
 }
