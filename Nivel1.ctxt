@@ -5,5 +5,5 @@ comment1.params=
 comment1.target=Nivel1()
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Nivel1.\r\n\ \r\n
 comment2.params=
-comment2.target=void\ Inceput()
+comment2.target=int\ getInf()
 numComments=3

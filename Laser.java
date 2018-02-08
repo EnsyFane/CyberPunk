@@ -84,6 +84,7 @@ public class Laser extends Actor
         actor = getOneIntersectingObject(Elev.class);
         if(actor != null && pornit)
         {
+            Sunete.Mort();
             if(LumeScrolling.getViata0())
                 LumeScrolling.setViata0(false);
             else if(LumeScrolling.getViata1())
