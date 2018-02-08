@@ -1,27 +1,34 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Tutorial1 here.
+ * Write a description of class Esnd here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class ETutorial0 extends Tutoriale
+public class Esnd extends Intrebari
 {
     /**
-     * Act - do whatever the Tutorial1 wants to do. This method is called whenever
+     * Act - do whatever the Esnd wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     private int s=LumeScrolling.getRez();
-    public ETutorial0()
+    private int x,y;
+    public Esnd()
     {
     this(40,40);
     }
-    public ETutorial0(int lungime,int inaltime)
+    public Esnd(int lungime,int inaltime)
     {
     GreenfootImage image = getImage();
         image.scale(lungime*s/3,inaltime*s/3);
         setImage(image); 
+    x=lungime;
+    y=inaltime;
     }
-    
+    public void setK(GreenfootImage aux)
+    {
+    aux.scale(x*s/3,y*s/3);
+    setImage(aux); 
+    }
 }

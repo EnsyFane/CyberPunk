@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Esnd
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Esnd\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Esnd()
+comment2.params=lungime\ inaltime
+comment2.target=Esnd(int,\ int)
+comment3.params=aux
+comment3.target=void\ setK(greenfoot.GreenfootImage)
+numComments=4

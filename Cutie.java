@@ -12,11 +12,13 @@ public class Cutie extends Actor
      * Act - do whatever the Platforma wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    //private final int gr=1;
-    //int acceleratieg = 0;
-    private int s=LumeScrolling.getRez();
+    private int s=LumeScrolling.getRez();//Retinem rezolutia (scala) jocului
     private int viteza;
-    int acceleratieg = 0;
+    private int acceleratieg = 0;
+    private int latime = getImage().getWidth();
+    private int inaltime = getImage().getHeight();
+    private int prox = 5;
+    int k=1;
     public Cutie()
     {
         this(300,40);
@@ -26,84 +28,91 @@ public class Cutie extends Actor
     {
         s=LumeScrolling.getRez();
         GreenfootImage image = getImage();
-        image.scale(lungime*s/3,inaltime*s/3);
+        image.scale(lungime*s/3,inaltime*s/3);//Setam imaginea in functie de rezolutie
         setImage(image);
+        if(s==2)
+        prox=-4;
     }
     
     public void act() 
     {
-        // Add your action code here.
-        viteza =Elev.getViteza();//Getting speed from the main actor
-        Gravitatie();
-        VerifMiscare();
+        viteza =Elev.getViteza();//Folosim viteza caracterului pentru o animatie lina
+        Gravitatie();//Simulam gravitatia
+        VerifMiscare();//Verificam daca cutia este impinsa
     }
     
-     public void Gravitatie()//Falling
+     public void Gravitatie()
     {
-        int gr=1;  
-        setLocation(getX(),getY()+acceleratieg);
-        if(VerifJos())
-        {
-            acceleratieg=0;
-            while(VerifJos())
-            {
+       //Simulam gravitatia
+      setLocation(getX(),getY()+acceleratieg);//Actualizam pozitia cutiei
+      if(VerifJos())//Daca se afla pe un solid setam viteza verticala la 0
+      {
+          acceleratieg=0;
+          while(VerifJos())//Actualizam pozitia cutiei la suprafata solidului 
+          {
               setLocation(getX(),getY()-1);  
+          }
+              setLocation(getX(),getY()+1); 
+       }
+      else 
+      {
+         
+
+            if(s==2)
+            {
+
+                //Daca avem rezolutia setata pe 720p incetinim gravitatia
+                if(k<=3)
+                    acceleratieg+=1;
+                else k=1;
+                k++;
             }
-            setLocation(getX(),getY()+1); 
-        }
-        else 
-        {
-            acceleratieg+=gr;
-        }
+            else
+            {
+                //Daca avem rezolutia setata pe 1080p gravitatia functioneaza normal
+                acceleratieg+=1;
+            }
+          
+      }
     }
     
-    public void VerifMiscare()//Checking if it is pushed
+    public void VerifMiscare()
     {
-        int latime = getImage().getWidth();
-        int inaltime = getImage().getHeight();
-        if((getOneObjectAtOffset(latime /4 +8*s/3 ,inaltime /-4 ,Elev.class)!=null||getOneObjectAtOffset(latime /4 +8*s/3 ,inaltime /4 ,Elev.class)!=null)
+        if((getOneObjectAtOffset(latime /4 +8*s/3 ,inaltime /-4 ,Elev.class)!=null||getOneObjectAtOffset(latime /4 +8*s/3 ,inaltime /4 ,Elev.class)!=null)//Verificam daca cutia este impinsa la stanga si nu avem blocaj la stanga
         &&!BlocajStanga())
-            setLocation(getX()-viteza,getY());
-        if((getOneObjectAtOffset(latime /-4 -8*s/3 ,inaltime /-4 ,Elev.class)!=null||getOneObjectAtOffset(latime /-4 -8*s/3,inaltime /4 ,Elev.class)!=null)
+            setLocation(getX()-viteza,getY());//Actualizam pozitia cutiei
+        if((getOneObjectAtOffset(latime /-4 -8*s/3 ,inaltime /-4 ,Elev.class)!=null||getOneObjectAtOffset(latime /-4 -8*s/3,inaltime /4 ,Elev.class)!=null)//Verificam daca cutia este impinsa la dreapta si nu avem blocaj la dreapta
         &&!BlocajDreapta())
-            setLocation(getX()+viteza,getY());
+            setLocation(getX()+viteza,getY());//Actualizam pozitia cutiei
     }
     
-    public boolean VerifJos()//Checking under for objects
+    public boolean VerifJos()
     {
-        boolean ok=false;
-        if(getY()>getWorld().getHeight()-65*s/3)
-            ok=true;
-        int latime = getImage().getWidth();
-        int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /2 ,inaltime /2 ,Platforma.class)!=null||getOneObjectAtOffset(latime /-2 ,inaltime /2 ,Platforma.class)!=null
-        ||getOneObjectAtOffset(latime /2 ,inaltime /2 ,Cutie.class)!=null||getOneObjectAtOffset(latime /-2 ,inaltime /2 ,Cutie.class)!=null
-        ||getOneObjectAtOffset(latime /4 ,inaltime /2 ,AI.class)!=null||getOneObjectAtOffset(latime /-4 ,inaltime /2 ,AI.class)!=null)
-            ok=true;
-        return ok;
+        if(getY()>getWorld().getHeight()-63*s/3)//Verificam daca cutia se afla pe sol 
+           return true;
+        if(getOneObjectAtOffset(latime /2 ,inaltime /2 ,Platforma.class)!=null||getOneObjectAtOffset(latime /-2 ,inaltime /2 ,Platforma.class)!=null//Verificam daca cutia se afla pe o platforma sau o cutie
+        ||getOneObjectAtOffset(latime /2 ,inaltime /2 ,Cutie.class)!=null||getOneObjectAtOffset(latime /-2 ,inaltime /2 ,Cutie.class)!=null)
+            return true;
+        return false;
     }
     
-    public boolean BlocajStanga()//Checking left for objects
+    public boolean BlocajStanga()
     {
-        boolean ok=false;
-        int latime = getImage().getWidth();
-        int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /-2 -1 ,inaltime /-4 ,Platforma.class)!=null||getOneObjectAtOffset(latime /-2  -2,inaltime /4 ,Platforma.class)!=null
-        ||getOneObjectAtOffset(latime /-2 -3*s/3,inaltime /-4 ,Cutie.class)!=null||getOneObjectAtOffset(latime /-2 -3*s/3,inaltime /4 ,Cutie.class)!=null
+        //Verificam daca in stanga cutiei se afla o cutie, o platforma sau un inamic (AI)
+        if(getOneObjectAtOffset(latime /-2 -prox ,inaltime /-2 ,Platforma.class)!=null||getOneObjectAtOffset(latime /-2  -prox,inaltime /2 ,Platforma.class)!=null
+        ||getOneObjectAtOffset(latime /-2 -4*s/3,inaltime /-4 ,Cutie.class)!=null||getOneObjectAtOffset(latime /-2 -4*s/3,inaltime /4 ,Cutie.class)!=null
         ||getOneObjectAtOffset(latime /-2 +8*s/3 ,inaltime /-4 ,AI.class)!=null||getOneObjectAtOffset(latime /-2 +8*s/3,inaltime /4 ,AI.class)!=null)
-            ok=true;
-        return ok;
+            return true;
+        return false;
     }
     
-     public boolean BlocajDreapta()//Checking right for objects
+     public boolean BlocajDreapta()
     {
-        boolean ok=false;
-        int latime = getImage().getWidth();
-        int inaltime = getImage().getHeight();
-        if(getOneObjectAtOffset(latime /2 +1 ,inaltime /4 ,Platforma.class)!=null||getOneObjectAtOffset(latime /2  +1,inaltime /-4 ,Platforma.class)!=null
-        ||getOneObjectAtOffset(latime /2 +2 ,inaltime /4 ,Cutie.class)!=null||getOneObjectAtOffset(latime /2 +2,inaltime /-4 ,Cutie.class)!=null
+        //Verificam daca in dreapta cutiei se afla o cutie, o platforma sau un inamic (AI)
+        if(getOneObjectAtOffset(latime /2 +prox  ,inaltime /2 ,Platforma.class)!=null||getOneObjectAtOffset(latime /2 +prox,inaltime /-2 ,Platforma.class)!=null
+        ||getOneObjectAtOffset(latime /2 +4*s/3 ,inaltime /4 ,Cutie.class)!=null||getOneObjectAtOffset(latime /2 +4*s/3,inaltime /-4 ,Cutie.class)!=null
         ||getOneObjectAtOffset(latime /2 -8*s/3,inaltime /4 ,AI.class)!=null||getOneObjectAtOffset(latime /2 -8*s/3,inaltime /-4 ,AI.class)!=null)
-            ok=true;
-        return ok;
+            return true;
+        return false;
     }
 }

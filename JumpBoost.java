@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class JumpBoost extends Actor
+public class JumpBoost extends Pickup
 {
     /**
      * Act - do whatever the JumpBoost wants to do. This method is called whenever
@@ -21,7 +21,7 @@ public class JumpBoost extends Actor
     public JumpBoost(int lungime , int inaltime)
     {
         GreenfootImage image = getImage();
-        image.scale(lungime*s/3,inaltime*s/3);
+        image.scale(lungime*s/3,inaltime*s/3);//Setam imaginea in functie de rezolutie
         setImage(image); 
     }
     

@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Intrebari extends Actor
+public class Intrebari extends Static
 {
     /**
      * Act - do whatever the Intrebari wants to do. This method is called whenever
