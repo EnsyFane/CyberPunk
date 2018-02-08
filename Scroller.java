@@ -1,50 +1,12 @@
 import greenfoot.*;
-/**
- * CLASS: Scroller (extends Object)
- * AUTHOR: danpost (greenfoot.org username)
- * DATE: November 11, 2016
- * MODIFIED: December 22, 2016 (fixed 'scroll' method for limited no-image scrolling)
- * MODIFIED: February 21, 2017 (fixed scroll offsets for unlimited no-image scrolling)
- * 
- * DESCRIPTION:  This is a support class for a scrolling world.  It contains two constructors;
- * one for unlimited scrolling and one for limited scrolling.  Both constructors have an 'image'
- * parameter.  Because image manipulation can hog up CPU time, it is important to remember that
- * it is better not to have a scrolling background image (having an Actor for the background is
- * probably worse than having the background scroll).  For unlimited scrolling using a background
- * image, the smaller that background image to be tiled, the better.  Making the viewport (the
- * size of the world that is visible) smaller can help in CPU expense, also.  Scrolling worlds
- * should be unbounded, allowing actors to move beyond the visible area.  Ensuring that actors
- * are removed from the world if no longer needed when out of view will help to prevent lag,
- * as well.  
- * 
- * It is the responsibility of the World object that creates a Scroller object to determine when
- * to scroll and by how much.
- */
+
+//Functie pentru scroll
 public class Scroller extends Actor
 {
     private World world; // view window world
     private GreenfootImage scrollImage; // scrolling image
-    private boolean limited; // flag to indicate whether scrolling is limited or not
     private int scrolledX, scrolledY; // current scrolled distances
-    private int wide, high; // if limited, dimensions of scrolling area else of image to wrap 
-    /**
-     * This constructor is for an unlimited scrolling world;
-     * If 'image' is null, the background will not change; else the given image is wrapped
-     * 
-     * @param viewWorld the world that scrolling will be performed on
-     * @param image the background image that will be tiled, if needed, and wrap with scrolling
-     */
-    public Scroller(World viewWorld, GreenfootImage image)
-    {
-        world = viewWorld;
-        scrollImage = image;
-        if (image != null)
-        {
-            wide = image.getWidth();
-            high = image.getHeight();
-        }
-        scroll(0, 0); // sets initial background image
-    }
+    private int wide, high; // if limited, dimensions of scrolling area else of image to wrap
    
     /**
      * This constructor is for a limited scrolling world;
@@ -64,7 +26,6 @@ public class Scroller extends Actor
     {
         this.wide = wide;
         this.high = high;
-        limited = true;
         world = viewWorld;
         if (image != null)
         {
@@ -84,8 +45,6 @@ public class Scroller extends Actor
     public void scroll(int dsx, int dsy)
     {
         // adjust scroll amounts and scroll background image
-        if (limited)
-        {
             // calculate limits of scrolling
             int maxX = wide-world.getWidth();
             int maxY = high-world.getHeight();
@@ -107,35 +66,7 @@ public class Scroller extends Actor
                     -scrolledY*world.getCellSize()
                 );
             }
-        }
-        else // unlimited image wrapping
-        {
-            // update scroll positions
-            scrolledX += dsx;
-            scrolledY += dsy;
-            // scroll background image
-            if (scrollImage != null)
-            {
-                // create working variables of scroll positions
-                int imageX = scrolledX*world.getCellSize();
-                int imageY = scrolledY*world.getCellSize();
-                // get near-zero starting positions for drawing 'scrollImage'
-                imageX = imageX%wide;
-                imageY = imageY%high;
-                // adjust negative values as needed
-                if (imageX < 0) imageX += wide;
-                if (imageY < 0) imageY += high;
-                // create image of appropriate size and tile fill 'scrollImage' onto it
-                GreenfootImage hold = new GreenfootImage(scrollImage);
-                hold.drawImage(scrollImage, -imageX, -imageY);
-                if (imageX > 0) hold.drawImage(scrollImage, wide-imageX, -imageY);
-                if (imageY > 0) hold.drawImage(scrollImage, -imageX, high-imageY);
-                if (imageX > 0 && imageY > 0)
-                    hold.drawImage(scrollImage, wide-imageX, high-imageY);
-                // set image to background of 'world'
-                world.setBackground(hold);
-            }
-        }
+        
         // adjust position of all actors (that can move with 'setLocation')
         for (Object obj : world.getObjects(null))
         {

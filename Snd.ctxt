@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Snd
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Snd\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Snd()
+comment2.params=lungime\ inaltime
+comment2.target=Snd(int,\ int)
+comment3.params=
+comment3.target=void\ afisare()
+comment4.params=
+comment4.target=void\ stergere()
+comment5.params=aux
+comment5.target=void\ setK(boolean)
+comment6.params=
+comment6.target=boolean\ getK()
+numComments=7

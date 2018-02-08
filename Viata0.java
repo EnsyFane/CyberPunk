@@ -41,19 +41,19 @@ public class Viata0 extends Static
     public void update()
     {
         if(ok)
-        {
+            {
             setImage(viata100);
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);
-        }
+            }
         else
-        {
+            {
             setImage(viata0);
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);
-        }
+            }
     }
     
     public void Eliminat()
@@ -69,5 +69,6 @@ public class Viata0 extends Static
     public static void setOk(boolean x)
     {
         ok = x;
-    } 
+    }
+   
 }

@@ -21,6 +21,8 @@ public class StartScreen extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1500*Rez()/3, 600*Rez()/3, 1); 
+        GreenfootImage bg = new GreenfootImage("EcranStart.jpg");
+        setBackground(bg);
         prepare();
     }
 
@@ -30,35 +32,48 @@ public class StartScreen extends World
      */
     private void prepare()
     {
+        //Pregatim butoanele pe ecran
+        Sunete.Fundal();
         addObject(jocnou,746,236);
-        jocnou.setLocation(757*s/3,223*s/3);
+        jocnou.setLocation(757*s/3,273*s/3);
         addObject(rezolutie,791,344);
-        rezolutie.setLocation(769*s/3,331*s/3);
+        rezolutie.setLocation(769*s/3,381*s/3);
+        addObject(new Titlu(),757*s/3,100*s/3);
     }
 
     public void act()
     {
+        if(Salvare.citireS(1)!=-1)
+        Greenfoot.setWorld(new StartScreen2());
         Check();
     }
-    
+
     public void Check()
     {
-        if(jocnou.getClicked())
+        if(jocnou.getClicked())//Verificam daca este apasat butonul joc nou
         {
+            //Pregatim vietiile caracterului
             LumeScrolling.setViata0(true);
             LumeScrolling.setViata1(true);
             LumeScrolling.setViata2(true);
+            //Pornim de la primul nivel
+            LumeScrolling.setCpu(false);
+            LumeScrolling.setVl(false);
+            LumeScrolling.setSave(false);
             Greenfoot.setWorld(new Nivel0());
+
         }
-        else if(rezolutie.getClicked())
+        else if(rezolutie.getClicked())//Verificam daca este apasat butonul rezolutie
         {
+            //Intram in meniul de rezolutie
             Greenfoot.setWorld(new EcranRezolutie());
         }
     }
-    
+
     public static int Rez()
     {
         try{
+            //Citim scala (rezolutia) pentru care trebuie creat jocul
             FileReader fr = new FileReader("Rezolutie.txt");
             BufferedReader br = new BufferedReader(fr);
             r=br.readLine();
@@ -67,13 +82,15 @@ public class StartScreen extends World
         }
         catch(IOException e)
         {
+            //Daca nu exista folderul este setata automat pe 1080p
             s=3;
         }
         return s;
     }
-    
+
     public static int getRez()
     {
+        //Returnam scala (rezolutia) jocului
         return s;
     }
 }
