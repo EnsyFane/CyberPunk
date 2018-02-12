@@ -12,8 +12,7 @@ public class Static extends Actor
      * Act - do whatever the Static wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    //Pastram pozitia actuala pe ecran si in timpul 'scrolling-ului'
     public void setLocation(int x,int y)
-    {
-    
-    }
+    {}
 }

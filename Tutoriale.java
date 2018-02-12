@@ -8,12 +8,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Tutoriale extends Static
 {
-    /**
-     * Act - do whatever the Tutoriale wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
+
+    private int s=LumeScrolling.getRez();
+    public Tutoriale(int lungime,int inaltime,GreenfootImage x)
     {
-        // Add your action code here.
-    }    
+        GreenfootImage image = x;
+        image.scale(lungime*s/3,inaltime*s/3);
+        setImage(image); 
+    }
 }
