@@ -1,21 +1,26 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 /**
- * Write a description of class Inapoi here.
+ * Write a description of class Continuare here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Inapoi extends Clickabile
-{private boolean clicked = false;
+public class Continuare extends Clickabile
+{
+    /**
+     * Act - do whatever the Continuare wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
+    private boolean clicked = false;
     private int x,y;
-    public Inapoi()
+    public Continuare()
     {
-        this(362,170);
-        
+        this(502,77);
+
     }
-    
-    public Inapoi(int lungime , int inaltime)
+
+    public Continuare(int lungime , int inaltime)
     {
         int s=StartScreen.getRez();
         GreenfootImage image = getImage();
@@ -24,28 +29,28 @@ public class Inapoi extends Clickabile
         x=lungime*s/3;
         y=inaltime*s/3;
     }
-    
+
     public void act() 
     {
         CheckMouseOver();//Verificam daca mouse-ul se afla pe buton
         CheckClick();//Verificam daca buotnul este apasat
     }
-    
+
     public void CheckMouseOver()
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if (mouse != null) 
         {
-            setImage("Inapoi.png");
+            setImage("Continuare.png");
             GreenfootImage image = getImage();
             image.scale(x,y);
             setImage(image);   
-            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), Inapoi.class);
+            List objects = getWorld().getObjectsAt(mouse.getX(), mouse.getY(), Continuare.class);
             for (Object object : objects)
             {
                 if (object == this)//Daca mouse-ul se afla pe suprafata butonului
                 {
-                    setImage("InapoiInverted.png");//Setam imaginea 'Inverted'
+                    setImage("ContinuareIn.png");//Setam imaginea 'Inverted'
                     image = getImage();
                     image.scale(x,y);
                     setImage(image);   
@@ -53,7 +58,7 @@ public class Inapoi extends Clickabile
             }
         }
     }
-    
+
     public void CheckClick()
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
@@ -63,7 +68,7 @@ public class Inapoi extends Clickabile
             Greenfoot.playSound("SunetButon.wav");
         }
     }
-    
+
     public boolean getClicked()
     {
         return clicked;
