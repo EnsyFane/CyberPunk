@@ -17,36 +17,40 @@ public class PC extends Actor
     World nivel;
     public  void act() 
     {
-        // Add your action code here.
-        if(CheckActor())
+
+        if(LumeScrolling.getCpu())
         {
-           if(!afisatEcran)
-           {
-           afisare();
-           }
+            if(CheckActor())
+            {
+                if(!afisatEcran)//Daca nu am afisat pop-up-ul il afisam
+                {
+                    afisare();
+                }
+            }
+            else//Daca actorul nu se mai intersecteaza cu obiectul
+            {
+                if(afisatEcran)//Daca am afisat pop-up-ul il stergem
+                    stergere();
+            }
         }
-        else
-        {
-            if(afisatEcran)
-            stergere();
-        }
-    }  
-    
+    }   
+
     public boolean CheckActor()
     {
+        
         if(getOneIntersectingObject(Elev.class)!=null)
             return true;
         else
             return false;
     }
-    
+
     public void afisare()
     {
-        
+
     }
-    
+
     public void stergere()
     {
-    
+
     }
 }

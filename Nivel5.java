@@ -1,28 +1,25 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Nivel1 here.
+ * Write a description of class Nivel5 here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Nivel1 extends LumeScrolling
+public class Nivel5 extends LumeScrolling
 {
 
-    /**
-     * Constructor for objects of class Nivel1.
-     * 
-     */
-    public Nivel1()
+    public boolean snd=true;
+    public Nivel5()
     {
-        nvl=1;
+        nvl=5;
         if(getSave())
             Salvare.salveaza(getInf());
     }
 
     public void RestartNivel()//Restartam nivelul
     {
-        Greenfoot.setWorld(new Nivel1());
+        Greenfoot.setWorld(new Nivel5());
     }
 
     public void NivelUrmator()//Schimbam nivelul cu urmatorul
@@ -30,7 +27,6 @@ public class Nivel1 extends LumeScrolling
         LumeScrolling.setSave(true);
         LumeScrolling.setCpu(false);
         LumeScrolling.setVl(false);
-        Greenfoot.setWorld(new Nivel2());
+        Greenfoot.setWorld(new Nivel6());
     }
-
 }
